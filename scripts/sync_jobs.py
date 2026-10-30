@@ -6,7 +6,7 @@ CONFIG = ROOT / "sources.json"
 DATA = ROOT / "site/data/jobs.json"
 UTC = dt.timezone.utc
 PROVIDERS = {"greenhouse":"boards-api.greenhouse.io", "lever":"api.lever.co", "ashby":"api.ashbyhq.com"}
-CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|network engineer|software engineer|site reliability|frontend|backend|security engineer|ai engineer|it support|qa engineer|systems engineer|infrastructure",re.I)
+CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|data platform|data analyst|network engineer|site reliability|frontend|backend|full.?stack|security engineer|security scientist|ai engineer|applied scientist|ai research|it support|qa engineer|systems engineer|infrastructure|analytics engineer|integration engineer|platform engineer|forward deployed engineer|product engineer|engineering manager|ux engineer|business engineer|solutions engineer|technical support|technical quality|data architect|database|embedded engineer|ml engineer",re.I)
 COUNTRIES = {
     "India":r"india|bengaluru|bangalore|hyderabad|mumbai|delhi|chennai|pune|noida",
     "United States":r"united states|usa|new york|california|seattle|boston|texas|chicago|washington|austin",

@@ -35,7 +35,8 @@
       "provider": "lever",
       "board": "plaid",
       "company": "Plaid",
-      "enabled": true
+      "enabled": false,
+      "disabled_reason": "Feed returned 404 on first live run. Re-enable only after validating source ID and permitted use."
     },
     {
       "provider": "ashby",
