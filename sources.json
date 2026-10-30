@@ -1,0 +1,47 @@
+{
+  "_note": "CANDIDATE job-board identifiers: live availability and commercial redistribution permissions must be independently confirmed. Do not monetize until source licensing has been checked.",
+  "sources": [
+    {
+      "provider": "greenhouse",
+      "board": "figma",
+      "company": "Figma",
+      "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "datadog",
+      "company": "Datadog",
+      "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "duolingo",
+      "company": "Duolingo",
+      "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "samsara",
+      "company": "Samsara",
+      "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "reddit",
+      "company": "Reddit",
+      "enabled": true
+    },
+    {
+      "provider": "lever",
+      "board": "plaid",
+      "company": "Plaid",
+      "enabled": true
+    },
+    {
+      "provider": "ashby",
+      "board": "linear",
+      "company": "Linear",
+      "enabled": true
+    }
+  ]
+}
