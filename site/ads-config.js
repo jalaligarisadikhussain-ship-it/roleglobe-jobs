@@ -1,11 +1,11 @@
 /*
  * RoleGlobe Jobs ad configuration (SITE SPECIFIC).
- * AdSense site review is pending. No ad SDK/script should be loaded.
+ * AdSense site review is pending; AdSense script must NOT load.
+ * Adsterra can load only after an explicit visitor opt-in.
  * Adsterra approved website #6162187; ad unit codes need per-format verification.
  * Native Banner #32000718, 300x250 #32000719, 728x90 #32000720, and mobile 320x50 #32000721 codes supplied by owner.
- * Activation REQUIRES: AdSense decision + network coexistence checks,
- * actual privacy/cookie disclosures, applicable consent gating,
- * and explicit owner approval for live advertising.
+ * Owner requested activation of Adsterra. Responsive opt-in consent gate
+ * and privacy disclosure are included. Publisher must still review regional compliance.
  */
 window.RG_ADS = Object.freeze({
   adsense: Object.freeze({
@@ -15,12 +15,12 @@ window.RG_ADS = Object.freeze({
     slotId: ""
   }),
   adsterra: Object.freeze({
-    enabled: false,
+    enabled: true,
     websiteApproved: true,
     websiteId: "6162187",
     nativeBanner: Object.freeze({
       unitId: "32000718",
-      enabled: false,
+      enabled: true,
       scriptUrl: "https://bauval.org/21/db9986460be31be0bad5b7387ff7c743",
       containerId: "container-db9986460be31be0bad5b7387ff7c743",
       placementId: "role-globe-native-ad"
@@ -28,7 +28,7 @@ window.RG_ADS = Object.freeze({
     banners: Object.freeze({
       rectangle300x250: Object.freeze({
         unitId: "32000719",
-        enabled: false,
+        enabled: true,
         codeReceived: true,
         key: "047af0bf3bc3ecc33e421219245a9969",
         format: "iframe",
@@ -40,7 +40,7 @@ window.RG_ADS = Object.freeze({
       }),
       leaderboard728x90: Object.freeze({
         unitId: "32000720",
-        enabled: false,
+        enabled: true,
         codeReceived: true,
         key: "4b4f22e1f0270355d8ba5559e12e81c7",
         format: "iframe",
@@ -52,7 +52,7 @@ window.RG_ADS = Object.freeze({
       }),
       mobile320x50: Object.freeze({
         unitId: "32000721",
-        enabled: false,
+        enabled: true,
         codeReceived: true,
         key: "85d1f99506c4c05c0aed8eed8fe65ba7",
         format: "iframe",

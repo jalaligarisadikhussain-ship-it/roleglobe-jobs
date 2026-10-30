@@ -13,6 +13,11 @@
 
 Publisher ID: `pub-8073443569494348`. Site ownership verification has succeeded and site review was requested. **Approval has not yet been confirmed.** Existing meta verification tag remains on site pages. AdSense script is not installed.
 
-## Publication safety
+## Live activation status
 
-Both networks are **OFF** on the live website. HTML includes hidden reserved native, 300×250, 728×90 and 320×50 banner sections, but no third-party ad scripts are **included**, so it makes no Adsterra ad request and cannot generate impressions or revenue. Do not activate network scripts until AdSense review status is known, site content and feed redistribution rights are checked, an accurate privacy/cookie policy and suitable consent solution are configured, and owner authorizes publication. Ad network terms must be evaluated for coexistence. No changes are needed to JobPath India, ByteBright or other projects.
+- On 30 October 2026 the owner explicitly requested Adsterra activation for **RoleGlobe only**.
+- All four Adsterra units are enabled in `site/ads-config.js` and loaded responsively through `site/ads-loader.js` **only after the visitor chooses Accept ads**. Native banner plus 728×90 and 300×250 desktop placements; native plus 320×50 on mobile.
+- The homepage displays a small advertising preference notice. A visitor can decline or withdraw. Third-party scripts are isolated inside advertising iframes. Third-party network rendering still needs browser testing; Adblock, geographic targeting and inventory may suppress creatives.
+- The privacy policy now discloses optional Adsterra processing. A legal/region-specific privacy and consent review remains necessary; this simple preference UI is **not a certified consent management platform**.
+- AdSense scripts remain **disabled** while site review is pending; ownership meta remains present.
+- Existing JobPath India, ByteBright and game sites were not modified.

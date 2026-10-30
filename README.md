@@ -23,3 +23,17 @@ Google AdSense account ID `pub-8073443569494348` is noted in `site/ads-config.js
 ## Before public launch
 
 Add a genuine contact email and amend `site/contact.html`, confirm actual Pages URL and canonical URLs in robots/sitemap, test feed permissions and availability, submit Google Search Console verification, and configure advertising only after approvals. No payment required for this code or Cloudflare Pages free-tier usage, subject to quota policies.
+
+## Google Search Console indexing
+
+- Site URL: `https://roleglobe-jobs.pages.dev/`
+- Sitemap: `https://roleglobe-jobs.pages.dev/sitemap.xml`
+- Robots: `https://roleglobe-jobs.pages.dev/robots.txt`
+- To claim property in Search Console select **URL prefix** and enter `https://roleglobe-jobs.pages.dev/`. DNS domain property verification cannot be performed over a Cloudflare-owned `pages.dev` subdomain.
+- Verify via Google-provided HTML meta tag or downloadable verification file; the user must provide the verification token or complete the Google OAuth flow. The AdSense meta tag is **not** automatically Search Console verification.
+- After property verification, open **Indexing → Sitemaps**, submit `sitemap.xml`; optionally use URL inspection on homepage and career guide URL to request indexing.
+- Submission does not guarantee indexing or rankings. Job cards use dynamically loaded JSON and do not currently have individual indexable URLs; add distinct permitted job detail pages only after content/redistribution permissions are reviewed.
+
+## Adsterra
+
+Adsterra native + desktop and mobile banner codes are enabled, but ads load only after a visitor clicks **Accept ads**. The user can decline and manage preferences. Google AdSense remains disabled pending approval. Publisher remains responsible for consent and ad policy checks in the jurisdictions served.
