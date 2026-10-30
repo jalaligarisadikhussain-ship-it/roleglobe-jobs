@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /ad-units/
 Sitemap: https://roleglobe-jobs.pages.dev/sitemap.xml

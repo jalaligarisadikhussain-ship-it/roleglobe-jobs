@@ -1,65 +1,118 @@
-/* RoleGlobe: Adsterra-only ad placements. AdSense scripts are intentionally absent. */
+/* RoleGlobe Jobs: responsive, consent-gated Adsterra integration. No AdSense script is loaded. */
 (function () {
   "use strict";
-  const cfg=window.RG_ADS;
-  if(!cfg||!cfg.adsterra||!cfg.adsterra.enabled)return;
-  const choiceKey="roleglobe-ad-choice-v1";
-  const getChoice=()=>{try{return localStorage.getItem(choiceKey)}catch(_){return null}};
-  const setChoice=value=>{try{localStorage.setItem(choiceKey,value)}catch(_){}};
-  const consentText="RoleGlobe uses optional Adsterra advertisements, which may use cookies, IP addresses and similar data for ad delivery and measurement. You can accept or decline. No advertising scripts load before you accept.";
-  let adShown=false;
-  function makeIframe(slot,unit){
-    if(!slot||!unit||!unit.enabled||!unit.scriptUrl||!unit.key)return;
-    const w=unit.width,h=unit.height;
-    const f=document.createElement("iframe");
-    f.title="Advertisement";
-    f.loading="lazy";
-    f.setAttribute("sandbox","allow-scripts allow-popups allow-popups-to-escape-sandbox");
-    f.referrerPolicy="strict-origin-when-cross-origin";
-    f.width=String(w);f.height=String(h);
-    f.style.width=w+"px";f.style.height=h+"px";
-    const options={key:unit.key,format:"iframe",height:h,width:w,params:{}};
-    f.srcdoc='<!doctype html><html><head><meta charset="utf-8"><meta name="referrer" content="strict-origin-when-cross-origin"><style>html,body{margin:0;padding:0;overflow:hidden}</style></head><body><script>var atOptions='+JSON.stringify(options)+';<\/script><script src="'+unit.scriptUrl+'"><\/script></body></html>';
-    slot.appendChild(f);slot.dataset.visible="true";
+  const config = window.RG_ADS;
+  if (!config || !config.adsterra || !config.adsterra.enabled) return;
+
+  const STORAGE_KEY = "roleglobe-ad-choice-v1";
+  const COOKIE_KEY = "rg_ad_choice";
+  const MAX_AGE = 60 * 60 * 24 * 180;
+  let adsMounted = false;
+
+  function cookieChoice() {
+    try {
+      const entry = document.cookie.split(";").map(x => x.trim()).find(x => x.startsWith(COOKIE_KEY + "="));
+      const choice = entry ? decodeURIComponent(entry.substring(COOKIE_KEY.length + 1)) : null;
+      return choice === "accepted" || choice === "declined" ? choice : null;
+    } catch (_) { return null; }
   }
-  function makeNative(slot,unit){
-    if(!slot||!unit||!unit.enabled||!unit.scriptUrl)return;
-    const f=document.createElement("iframe");
-    f.title="Sponsored advertisements";
-    f.loading="lazy";
-    f.setAttribute("sandbox","allow-scripts allow-popups allow-popups-to-escape-sandbox");
-    f.referrerPolicy="strict-origin-when-cross-origin";
-    f.style.width="100%";f.style.maxWidth="760px";f.style.height="290px";
-    f.srcdoc='<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;padding:0;background:transparent;overflow:auto}</style></head><body><script async="async" data-cfasync="false" src="'+unit.scriptUrl+'"><\/script><div id="'+unit.containerId+'"></div></body></html>';
-    slot.appendChild(f);slot.dataset.visible="true";
+  function savedChoice() {
+    const cookie = cookieChoice();
+    if (cookie) return cookie;
+    try {
+      const v = localStorage.getItem(STORAGE_KEY);
+      if (v === "accepted" || v === "declined") return v;
+    } catch (_) {}
+    try {
+      const v = sessionStorage.getItem(STORAGE_KEY);
+      if (v === "accepted" || v === "declined") return v;
+    } catch (_) {}
+    return null;
   }
-  function showAds(){
-    if(adShown||getChoice()!=="accepted")return;
-    adShown=true;
-    const a=cfg.adsterra,b=a.banners;
-    if(matchMedia("(max-width:720px)").matches){
-      makeIframe(document.getElementById(b.mobile320x50.placementId),b.mobile320x50);
+  function persistChoice(value) {
+    // Prefer a shared first-party cookie: it also covers Cloudflare preview subdomains.
+    const base = COOKIE_KEY + "=" + encodeURIComponent(value) + "; Max-Age=" + MAX_AGE + "; Path=/; SameSite=Lax; Secure";
+    try {
+      document.cookie = base + "; Domain=roleglobe-jobs.pages.dev";
+      if (cookieChoice() !== value) document.cookie = base;
+    } catch (_) {}
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (_) {}
+    try { sessionStorage.setItem(STORAGE_KEY, value); } catch (_) {}
+  }
+  function mountUnit(placementId, url, width, height, label) {
+    const slot = document.getElementById(placementId);
+    if (!slot || slot.querySelector("iframe")) return;
+    const frame = document.createElement("iframe");
+    frame.src = url;
+    frame.title = label;
+    frame.loading = "eager";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.width = String(width);
+    frame.height = String(height);
+    frame.style.cssText = "width:100%;max-width:" + width + "px;height:" + height + "px;border:0;display:block;background:transparent";
+    frame.setAttribute("allow", "autoplay=()");
+    // Use a normal same-origin HTML page containing the network's original synchronous
+    // embed code. Do NOT use sandboxed srcdoc: it can prevent ad rendering.
+    slot.appendChild(frame);
+    slot.dataset.visible = "true";
+  }
+  function showAds() {
+    if (adsMounted || savedChoice() !== "accepted") return;
+    adsMounted = true;
+    const a = config.adsterra, b = a.banners;
+    const mobile = window.matchMedia("(max-width:720px)").matches;
+    if (mobile) {
+      if (b.mobile320x50.enabled) mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html", 320, 60, "Mobile advertisement");
     } else {
-      makeIframe(document.getElementById(b.leaderboard728x90.placementId),b.leaderboard728x90);
-      makeIframe(document.getElementById(b.rectangle300x250.placementId),b.rectangle300x250);
+      if (b.leaderboard728x90.enabled) mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 100, "Leaderboard advertisement");
+      if (b.rectangle300x250.enabled) mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 260, "Advertisement");
     }
-    makeNative(document.getElementById(a.nativeBanner.placementId),a.nativeBanner);
+    if (a.nativeBanner.enabled) mountUnit(a.nativeBanner.placementId, "/ad-units/native.html", 760, 360, "Sponsored advertisements");
   }
-  function dismiss(){const x=document.getElementById("ad-consent");if(x)x.remove()}
-  function select(value){setChoice(value);dismiss();if(value==="accepted")showAds();else if(adShown)location.reload()}
-  function openPreferences(){
-    dismiss();
-    const x=document.createElement("section");x.id="ad-consent";x.setAttribute("role","dialog");x.setAttribute("aria-label","Advertising preferences");
-    const heading=document.createElement("strong");heading.textContent="Optional advertising";x.appendChild(heading);
-    const p=document.createElement("p");p.textContent=consentText;x.appendChild(p);
-    const link=document.createElement("a");link.href="/privacy.html";link.textContent="Privacy policy";x.appendChild(link);
-    const buttons=document.createElement("div");buttons.className="ad-consent-actions";
-    const accept=document.createElement("button");accept.type="button";accept.textContent="Accept ads";accept.className="accept";accept.onclick=()=>select("accepted");
-    const decline=document.createElement("button");decline.type="button";decline.textContent="Decline ads";decline.onclick=()=>select("declined");
-    buttons.append(accept,decline);x.appendChild(buttons);document.body.appendChild(x);
+  function dismissDialog() {
+    const dialog = document.getElementById("ad-consent");
+    if (dialog) dialog.remove();
   }
-  const settingsButton=document.getElementById("ad-settings");
-  if(settingsButton)settingsButton.addEventListener("click",openPreferences);
-  if(getChoice()==="accepted")showAds();
-  else if(getChoice()!=="declined")openPreferences();
+  function choose(value) {
+    const previous = savedChoice();
+    persistChoice(value);
+    dismissDialog();
+    if (value === "accepted") showAds();
+    else if (adsMounted || previous === "accepted") location.reload();
+  }
+  function openDialog() {
+    dismissDialog();
+    const dialog = document.createElement("section");
+    dialog.id = "ad-consent";
+    dialog.setAttribute("role", "dialog");
+    dialog.setAttribute("aria-label", "Optional advertising preferences");
+    const title = document.createElement("strong");
+    title.textContent = "Advertising choices";
+    dialog.append(title);
+    const desc = document.createElement("p");
+    desc.textContent = "With your permission, we show ads from Adsterra, which may use cookies and device data. You can browse jobs without ads. Your choice is remembered on this site.";
+    dialog.append(desc);
+    const privacyLink = document.createElement("a");
+    privacyLink.href = "/privacy.html";
+    privacyLink.textContent = "Privacy details";
+    dialog.append(privacyLink);
+    const actions = document.createElement("div");
+    actions.className = "ad-consent-actions";
+    const accept = document.createElement("button");
+    accept.type = "button";
+    accept.className = "accept";
+    accept.textContent = "Accept ads";
+    accept.addEventListener("click", () => choose("accepted"));
+    const decline = document.createElement("button");
+    decline.type = "button";
+    decline.textContent = "Decline ads";
+    decline.addEventListener("click", () => choose("declined"));
+    actions.append(accept, decline);
+    dialog.append(actions);
+    document.body.appendChild(dialog);
+  }
+  document.getElementById("ad-settings")?.addEventListener("click", openDialog);
+  const currentChoice = savedChoice();
+  if (currentChoice === "accepted") showAds();
+  else if (currentChoice !== "declined") openDialog();
 })();

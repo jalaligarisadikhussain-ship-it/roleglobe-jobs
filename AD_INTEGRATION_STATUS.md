@@ -21,3 +21,10 @@ Publisher ID: `pub-8073443569494348`. Site ownership verification has succeeded 
 - The privacy policy now discloses optional Adsterra processing. A legal/region-specific privacy and consent review remains necessary; this simple preference UI is **not a certified consent management platform**.
 - AdSense scripts remain **disabled** while site review is pending; ownership meta remains present.
 - Existing JobPath India, ByteBright and game sites were not modified.
+
+## 30 October 2026: rendering repair
+
+- Replaced sandboxed `srcdoc` ad frames with dedicated same-origin HTML ad-unit documents containing original Adsterra tags. The former sandbox configuration could prevent network creatives from displaying.
+- Changed `X-Frame-Options` from `DENY` to `SAMEORIGIN` so the new on-site ad-unit frames can load while preventing cross-site framing.
+- Added a 180-day first-party choice cookie that can be shared between the main Pages domain and its preview subdomains, with local/session storage fallback, to reduce repeated Accept ads prompts. Initial consent is still required and can be changed using Ad preferences.
+- Ad rendering and third-party availability have **not** been verified live; network fill, ad blockers, geo-targeting, cookie settings and policy restrictions may still prevent ads. Google AdSense remains disabled pending review.
