@@ -18,7 +18,15 @@ The workflow `.github/workflows/daily-jobs.yml` runs daily at 02:17 UTC (best ef
 
 ## Ads and monetization
 
-Google AdSense account ID `pub-8073443569494348` is noted in `site/ads-config.js` but **scripts are NOT loaded**. Adsterra has no site-specific zone yet. Both ad networks must independently accept this domain or provide applicable approvals, and any required consent management must be configured before ads can be enabled. Do not reuse ad units from JobPath India. Revenue is not guaranteed.
+RoleGlobe uses a professional **two-slot maximum per page/device** layout, rather than four competing placements:
+
+- After the categories, Adsterra **728×90 desktop** or **320×50 mobile** banner (one, depending on viewport).
+- After the job listing section, one **300×250** unit (desktop and mobile).
+- The experimental **native ad unit is disabled** to keep the interface uncluttered.
+
+All advertising containers stay **completely hidden** unless a visitor chooses **Accept ads**. No blank boxes, no popups or forced redirects are authored by RoleGlobe. Ads use clearly marked **Advertisement** labels and do not interrupt job cards or apply controls. Individual ad creative and potential third-party behavior are controlled by the ad provider, not by our CSS; configure unwanted categories in the Adsterra publisher dashboard and contact Adsterra if a unit is intrusive.
+
+The Adsterra site-specific format keys are already configured; the site-owner must verify that all ad units are active and meet content/consent policies. **Google AdSense remains disabled** pending independent site approval. Never run AdSense and Adsterra in the same container; add separate approved units only after Google authorizes the site. Advertising results and revenue are not guaranteed.
 
 ## Before public launch
 

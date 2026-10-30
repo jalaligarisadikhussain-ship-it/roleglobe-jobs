@@ -45,7 +45,7 @@
     const frame = document.createElement("iframe");
     frame.src = url;
     frame.title = label;
-    frame.loading = "eager";
+    frame.loading = "lazy";
     frame.referrerPolicy = "strict-origin-when-cross-origin";
     frame.width = String(width);
     frame.height = String(height);
@@ -63,11 +63,10 @@
     const mobile = window.matchMedia("(max-width:720px)").matches;
     if (mobile) {
       if (b.mobile320x50.enabled) mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html", 320, 60, "Mobile advertisement");
-    } else {
-      if (b.leaderboard728x90.enabled) mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 100, "Leaderboard advertisement");
-      if (b.rectangle300x250.enabled) mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 260, "Advertisement");
+    } else if (b.leaderboard728x90.enabled) {
+      mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 100, "Leaderboard advertisement");
     }
-    if (a.nativeBanner.enabled) mountUnit(a.nativeBanner.placementId, "/ad-units/native.html", 760, 360, "Sponsored advertisements");
+    if (b.rectangle300x250.enabled) mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 260, "Advertisement");
   }
   function dismissDialog() {
     const dialog = document.getElementById("ad-consent");

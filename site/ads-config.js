@@ -4,6 +4,7 @@
  * Adsterra can load only after an explicit visitor opt-in.
  * Adsterra approved website #6162187; ad unit codes need per-format verification.
  * Native Banner #32000718, 300x250 #32000719, 728x90 #32000720, and mobile 320x50 #32000721 codes supplied by owner.
+ * Professional placement policy: no native banner, at most 2 display ads per device.
  * Owner requested activation of Adsterra. Responsive opt-in consent gate
  * and privacy disclosure are included. Publisher must still review regional compliance.
  */
@@ -20,7 +21,7 @@ window.RG_ADS = Object.freeze({
     websiteId: "6162187",
     nativeBanner: Object.freeze({
       unitId: "32000718",
-      enabled: true,
+      enabled: false,
       scriptUrl: "https://bauval.org/21/db9986460be31be0bad5b7387ff7c743",
       containerId: "container-db9986460be31be0bad5b7387ff7c743",
       placementId: "role-globe-native-ad"
