@@ -1,2 +1,35 @@
-/* Both networks deliberately disabled until site-specific approval and consent setup. */
-window.RG_ADS = {adsense:{enabled:false,approved:false,publisherId:'ca-pub-8073443569494348',slotId:''},adsterra:{enabled:false,approved:false,zoneScript:'',containerId:''},consentProviderReady:false};
+/*
+ * RoleGlobe Jobs ad configuration (SITE SPECIFIC).
+ * AdSense site review is pending. No ad SDK/script should be loaded.
+ * Adsterra approved website #6162187; ad unit codes need per-format verification.
+ * Native Banner #32000718 code was supplied by the owner.
+ * Activation REQUIRES: AdSense decision + network coexistence checks,
+ * actual privacy/cookie disclosures, applicable consent gating,
+ * and explicit owner approval for live advertising.
+ */
+window.RG_ADS = Object.freeze({
+  adsense: Object.freeze({
+    enabled: false,
+    reviewStatus: "requested",
+    publisherId: "ca-pub-8073443569494348",
+    slotId: ""
+  }),
+  adsterra: Object.freeze({
+    enabled: false,
+    websiteApproved: true,
+    websiteId: "6162187",
+    nativeBanner: Object.freeze({
+      unitId: "32000718",
+      enabled: false,
+      scriptUrl: "https://bauval.org/21/db9986460be31be0bad5b7387ff7c743",
+      containerId: "container-db9986460be31be0bad5b7387ff7c743",
+      placementId: "role-globe-native-ad"
+    }),
+    banners: Object.freeze({
+      rectangle300x250: Object.freeze({unitId: "32000719", enabled: false, codeReceived: false}),
+      leaderboard728x90: Object.freeze({unitId: "32000720", enabled: false, codeReceived: false}),
+      mobile320x50: Object.freeze({unitId: "32000721", enabled: false, codeReceived: false})
+    })
+  }),
+  consentProviderReady: false
+});
