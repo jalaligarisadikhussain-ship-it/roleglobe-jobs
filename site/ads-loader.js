@@ -89,11 +89,11 @@
     title.textContent = "Advertising choices";
     dialog.append(title);
     const desc = document.createElement("p");
-    desc.textContent = "With your permission, we show ads from Adsterra, which may use cookies and device data. You can browse jobs without ads. Your choice is remembered on this site.";
+    desc.textContent = "Allow optional Adsterra ads? Advertising partners may use cookies and device data. Jobs remain accessible without ads.";
     dialog.append(desc);
     const privacyLink = document.createElement("a");
     privacyLink.href = "/privacy.html";
-    privacyLink.textContent = "Privacy details";
+    privacyLink.textContent = "How advertising uses data";
     dialog.append(privacyLink);
     const actions = document.createElement("div");
     actions.className = "ad-consent-actions";
