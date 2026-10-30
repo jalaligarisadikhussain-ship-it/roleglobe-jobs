@@ -2,7 +2,7 @@
  * RoleGlobe Jobs ad configuration (SITE SPECIFIC).
  * AdSense site review is pending. No ad SDK/script should be loaded.
  * Adsterra approved website #6162187; ad unit codes need per-format verification.
- * Native Banner #32000718 and 300x250 Banner #32000719 codes supplied by owner.
+ * Native Banner #32000718, 300x250 #32000719 and 728x90 #32000720 codes supplied by owner.
  * Activation REQUIRES: AdSense decision + network coexistence checks,
  * actual privacy/cookie disclosures, applicable consent gating,
  * and explicit owner approval for live advertising.
@@ -38,7 +38,18 @@ window.RG_ADS = Object.freeze({
         scriptUrl: "https://bauval.org/22/047af0bf3bc3ecc33e421219245a9969",
         placementId: "role-globe-rectangle-300x250"
       }),
-      leaderboard728x90: Object.freeze({unitId: "32000720", enabled: false, codeReceived: false}),
+      leaderboard728x90: Object.freeze({
+        unitId: "32000720",
+        enabled: false,
+        codeReceived: true,
+        key: "4b4f22e1f0270355d8ba5559e12e81c7",
+        format: "iframe",
+        height: 90,
+        width: 728,
+        params: Object.freeze({}),
+        scriptUrl: "https://bauval.org/22/4b4f22e1f0270355d8ba5559e12e81c7",
+        placementId: "role-globe-leaderboard-728x90"
+      }),
       mobile320x50: Object.freeze({unitId: "32000721", enabled: false, codeReceived: false})
     })
   }),
