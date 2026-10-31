@@ -28,3 +28,8 @@ test('Cloudflare headers block framing of this publisher page and scripts bind t
  const preview=fixture({hostname:'branch.roleglobe-jobs.pages.dev'});
  assert.equal(preview.scripts.length,0);
 });
+
+// Publisher-side Adsterra iframe wrappers are prohibited; fail CI on reintroduction.
+test('Publisher ad iframe wrapper must never return to static Cloudflare output',()=>{
+ assert.equal(fs.existsSync('site/ad-units'),false,'Do not re-add site/ad-units: Adsterra forbids publisher iframe wrappers');
+});
