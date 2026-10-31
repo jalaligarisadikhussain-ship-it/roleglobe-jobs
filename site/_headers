@@ -5,3 +5,16 @@
 
 /ad-units/*
   X-Robots-Tag: noindex, nofollow
+
+# Ensure old consent-modal HTML/scripts are revalidated after deployments.
+/
+  Cache-Control: no-cache, must-revalidate
+
+/index.html
+  Cache-Control: no-cache, must-revalidate
+
+/ads-config.js
+  Cache-Control: no-cache, must-revalidate
+
+/ads-loader.js
+  Cache-Control: no-cache, must-revalidate

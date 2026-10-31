@@ -129,6 +129,18 @@ test('existing format keys, AdSense off, Native off and correct public cache bus
   for(const key of ['047af0bf3bc3ecc33e421219245a9969',
                     '4b4f22e1f0270355d8ba5559e12e81c7',
                     '85d1f99506c4c05c0aed8eed8fe65ba7'])assert.ok(config.includes(key));
-  assert.match(html,/ads-loader\.js\?v=auto-ads-20261031/);
+  assert.match(html,/ads-loader\.js\?v=auto-ads-no-popup-20261031/);
   assert.doesNotMatch(loader,/\.textContent\s*=\s*['\"](?:Accept ads|Decline ads)['\"]/);
+});
+
+test('Cloudflare browser caches must revalidate old consent popup assets',()=>{
+  const headers=fs.readFileSync('site/_headers','utf8');
+  assert.match(headers,/\/index\.html\n  Cache-Control: no-cache, must-revalidate/);
+  assert.match(headers,/\/ads-loader\.js\n  Cache-Control: no-cache, must-revalidate/);
+  assert.match(headers,/\/ads-config\.js\n  Cache-Control: no-cache, must-revalidate/);
+  assert.match(html,/ads-config\.js\?v=auto-ads-no-popup-20261031/);
+  assert.match(html,/ads-loader\.js\?v=auto-ads-no-popup-20261031/);
+  const fixtureData=fixture();
+  assert.equal(fixtureData.dialog,null);
+  assert.equal(fixtureData.count,2);
 });
