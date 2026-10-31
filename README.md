@@ -24,7 +24,7 @@ RoleGlobe uses a professional **two-slot maximum per page/device** layout, rathe
 - After the job listing section, one **300×250** unit (desktop and mobile).
 - The experimental **native ad unit is disabled** to keep the interface uncluttered.
 
-All advertising containers stay **completely hidden** unless a visitor chooses **Accept ads**. No blank boxes, no popups or forced redirects are authored by RoleGlobe. Ads use clearly marked **Advertisement** labels and do not interrupt job cards or apply controls. Individual ad creative and potential third-party behavior are controlled by the ad provider, not by our CSS; configure unwanted categories in the Adsterra publisher dashboard and contact Adsterra if a unit is intrusive.
+Advertising containers are mounted automatically on the RoleGlobe Cloudflare Pages host for visitors who have not opted out and whose browsers do not send Global Privacy Control. No first-visit Accept ads popup is shown. No blank boxes, no popups or forced redirects are authored by RoleGlobe. Ads use clearly marked **Advertisement** labels and do not interrupt job cards or apply controls. Individual ad creative and potential third-party behavior are controlled by the ad provider, not by our CSS; configure unwanted categories in the Adsterra publisher dashboard and contact Adsterra if a unit is intrusive.
 
 The Adsterra site-specific format keys are already configured; the site-owner must verify that all ad units are active and meet content/consent policies. **Google AdSense remains disabled** pending independent site approval. Never run AdSense and Adsterra in the same container; add separate approved units only after Google authorizes the site. Advertising results and revenue are not guaranteed.
 
@@ -44,4 +44,8 @@ Add a genuine contact email and amend `site/contact.html`, confirm actual Pages 
 
 ## Adsterra
 
-Adsterra native + desktop and mobile banner codes are enabled, but ads load only after a visitor clicks **Accept ads**. The user can decline and manage preferences. Google AdSense remains disabled pending approval. Publisher remains responsible for consent and ad policy checks in the jurisdictions served.
+RoleGlobe automatically requests one responsive banner plus one 300×250 display banner on the Cloudflare Pages host; native ads remain disabled. Visitors can turn ads off via the footer Ad preferences control, and GPC/saved refusals block loading. Google AdSense remains disabled pending approval. Publisher remains responsible for consent and ad policy checks in the jurisdictions served.
+
+## 31 October 2026 — automatic ad requests (owner instruction)
+
+The previous first-visit “Accept ads” popup was removed. Adsterra's two existing display placements now request ads directly from the RoleGlobe Cloudflare Pages hostname when no prior opt-out or GPC signal is present. The preference panel is only opened manually from the footer. This implements owner-requested site behavior, **not an assurance of live Adsterra fill** or permission to track visitors in regions requiring prior consent. Review a regional CMP and provider policies before advertising to markets where explicit consent is required. Other websites remain untouched.

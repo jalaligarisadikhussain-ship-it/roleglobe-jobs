@@ -1,14 +1,22 @@
-/* RoleGlobe Jobs: responsive, consent-gated Adsterra integration. No AdSense script is loaded. */
+/* RoleGlobe Jobs: automatic Cloudflare-only Adsterra display with visitor opt-out. AdSense stays off. */
 (function () {
   "use strict";
   const config = window.RG_ADS;
-  if (!config || !config.adsterra || !config.adsterra.enabled) return;
+  if (!config?.adsterra?.enabled || config.adsterra.automaticDisplay !== true) return;
 
+  const HOSTNAME = "roleglobe-jobs.pages.dev";
   const STORAGE_KEY = "roleglobe-ad-choice-v1";
   const COOKIE_KEY = "rg_ad_choice";
   const MAX_AGE = 60 * 60 * 24 * 180;
   let adsMounted = false;
 
+  function validHost() {
+    const hostname = window.location?.hostname || "";
+    return hostname === HOSTNAME || hostname.endsWith("." + HOSTNAME);
+  }
+  function privacyBlocked() {
+    return window.navigator?.globalPrivacyControl === true;
+  }
   function cookieChoice() {
     try {
       const entry = document.cookie.split(";").map(x => x.trim()).find(x => x.startsWith(COOKIE_KEY + "="));
@@ -30,14 +38,18 @@
     return null;
   }
   function persistChoice(value) {
-    // Prefer a shared first-party cookie: it also covers Cloudflare preview subdomains.
-    const base = COOKIE_KEY + "=" + encodeURIComponent(value) + "; Max-Age=" + MAX_AGE + "; Path=/; SameSite=Lax; Secure";
+    const base = COOKIE_KEY + "=" + encodeURIComponent(value) +
+      "; Max-Age=" + MAX_AGE + "; Path=/; SameSite=Lax; Secure";
     try {
-      document.cookie = base + "; Domain=roleglobe-jobs.pages.dev";
+      document.cookie = base + "; Domain=" + HOSTNAME;
       if (cookieChoice() !== value) document.cookie = base;
     } catch (_) {}
     try { localStorage.setItem(STORAGE_KEY, value); } catch (_) {}
     try { sessionStorage.setItem(STORAGE_KEY, value); } catch (_) {}
+  }
+  function adsAllowed() {
+    // Prior refusals and Global Privacy Control override the owner's default.
+    return validHost() && !privacyBlocked() && savedChoice() !== "declined";
   }
   function mountUnit(placementId, url, width, height, label) {
     const slot = document.getElementById(placementId);
@@ -49,69 +61,83 @@
     frame.referrerPolicy = "strict-origin-when-cross-origin";
     frame.width = String(width);
     frame.height = String(height);
-    frame.style.cssText = "width:100%;max-width:" + width + "px;height:" + height + "px;border:0;display:block;background:transparent";
+    frame.style.cssText = "width:100%;max-width:" + width + "px;height:" +
+      height + "px;border:0;display:block;background:transparent";
     frame.setAttribute("allow", "autoplay=()");
-    // Use a normal same-origin HTML page containing the network's original synchronous
-    // embed code. Do NOT use sandboxed srcdoc: it can prevent ad rendering.
+    // Same-origin ad-unit pages contain the original provider script tags.
+    // Never use a sandboxed srcdoc frame or load AdSense in this integration.
     slot.appendChild(frame);
     slot.dataset.visible = "true";
   }
   function showAds() {
-    if (adsMounted || savedChoice() !== "accepted") return;
+    if (adsMounted || !adsAllowed()) return;
     adsMounted = true;
-    const a = config.adsterra, b = a.banners;
+    const b = config.adsterra.banners;
     const mobile = window.matchMedia("(max-width:720px)").matches;
     if (mobile) {
-      if (b.mobile320x50.enabled) mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html", 320, 60, "Mobile advertisement");
+      if (b.mobile320x50.enabled)
+        mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html", 320, 50, "Mobile advertisement");
     } else if (b.leaderboard728x90.enabled) {
-      mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 100, "Leaderboard advertisement");
+      mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 90, "Leaderboard advertisement");
     }
-    if (b.rectangle300x250.enabled) mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 260, "Advertisement");
+    if (b.rectangle300x250.enabled)
+      mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 250, "Advertisement");
   }
   function dismissDialog() {
-    const dialog = document.getElementById("ad-consent");
-    if (dialog) dialog.remove();
+    document.getElementById("ad-consent")?.remove();
   }
   function choose(value) {
-    const previous = savedChoice();
+    if (value === "accepted" && privacyBlocked()) return;
     persistChoice(value);
     dismissDialog();
-    if (value === "accepted") showAds();
-    else if (adsMounted || previous === "accepted") location.reload();
+    if (value === "declined") {
+      // Reload clears any provider JavaScript already running in ad iframes.
+      if (adsMounted) window.location.reload();
+      return;
+    }
+    showAds();
   }
-  function openDialog() {
+  function openPreferences() {
+    // This panel is never displayed automatically. Users open it from the footer.
     dismissDialog();
     const dialog = document.createElement("section");
     dialog.id = "ad-consent";
     dialog.setAttribute("role", "dialog");
-    dialog.setAttribute("aria-label", "Optional advertising preferences");
+    dialog.setAttribute("aria-label", "Advertising preferences");
     const title = document.createElement("strong");
-    title.textContent = "Advertising choices";
+    title.textContent = "Advertising preferences";
     dialog.append(title);
     const desc = document.createElement("p");
-    desc.textContent = "Allow optional Adsterra ads? Advertising partners may use cookies and device data. Jobs remain accessible without ads.";
+    desc.textContent = "RoleGlobe may show Adsterra ads by default. Advertising partners may use cookies and device data. You can turn ads off and still browse all jobs.";
     dialog.append(desc);
-    const privacyLink = document.createElement("a");
-    privacyLink.href = "/privacy.html";
-    privacyLink.textContent = "How advertising uses data";
-    dialog.append(privacyLink);
+    const privacy = document.createElement("a");
+    privacy.href = "/privacy.html";
+    privacy.textContent = "Privacy policy";
+    dialog.append(privacy);
     const actions = document.createElement("div");
     actions.className = "ad-consent-actions";
-    const accept = document.createElement("button");
-    accept.type = "button";
-    accept.className = "accept";
-    accept.textContent = "Accept ads";
-    accept.addEventListener("click", () => choose("accepted"));
-    const decline = document.createElement("button");
-    decline.type = "button";
-    decline.textContent = "Decline ads";
-    decline.addEventListener("click", () => choose("declined"));
-    actions.append(accept, decline);
+    const enable = document.createElement("button");
+    enable.type = "button";
+    enable.className = "accept";
+    enable.textContent = "Turn ads on";
+    enable.disabled = privacyBlocked();
+    enable.addEventListener("click", () => choose("accepted"));
+    const disable = document.createElement("button");
+    disable.type = "button";
+    disable.textContent = "Turn ads off";
+    disable.addEventListener("click", () => choose("declined"));
+    actions.append(enable, disable);
     dialog.append(actions);
+    const close = document.createElement("button");
+    close.type = "button";
+    close.textContent = "Close";
+    close.addEventListener("click", dismissDialog);
+    dialog.append(close);
     document.body.appendChild(dialog);
   }
-  document.getElementById("ad-settings")?.addEventListener("click", openDialog);
-  const currentChoice = savedChoice();
-  if (currentChoice === "accepted") showAds();
-  else if (currentChoice !== "declined") openDialog();
+
+  document.getElementById("ad-settings")?.addEventListener("click", openPreferences);
+  // No new-visitor Accept ads prompt; two existing banners request inventory
+  // on the approved Cloudflare site unless opted out or GPC is set.
+  showAds();
 })();

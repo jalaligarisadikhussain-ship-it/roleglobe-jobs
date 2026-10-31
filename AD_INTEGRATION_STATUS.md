@@ -28,3 +28,10 @@ Publisher ID: `pub-8073443569494348`. Site ownership verification has succeeded 
 - Changed `X-Frame-Options` from `DENY` to `SAMEORIGIN` so the new on-site ad-unit frames can load while preventing cross-site framing.
 - Added a 180-day first-party choice cookie that can be shared between the main Pages domain and its preview subdomains, with local/session storage fallback, to reduce repeated Accept ads prompts. Initial consent is still required and can be changed using Ad preferences.
 - Ad rendering and third-party availability have **not** been verified live; network fill, ad blockers, geo-targeting, cookie settings and policy restrictions may still prevent ads. Google AdSense remains disabled pending review.
+
+## 31 October 2026 — owner-requested default display
+
+- Removed the initial visitor **Accept ads** popup; the small preference dialog appears only when clicking the **Ad preferences** footer link.
+- Automatic loading now occurs only on `roleglobe-jobs.pages.dev` and its preview subdomains; saved **Turn ads off** choices and Global Privacy Control suppress third-party requests.
+- Enabled one banner for the current viewport (728×90 desktop or 320×50 mobile) and one 300×250 rectangle with the same verified owner-supplied keys. Native Banner and AdSense remain off.
+- The source/configuration change does not prove real impressions, network creative fill, nor regional advertising compliance. Review required consent-management obligations before broad/global deployment.

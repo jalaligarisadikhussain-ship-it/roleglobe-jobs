@@ -1,0 +1,33 @@
+name: Verify RoleGlobe automatic advertising
+on:
+  push:
+    paths:
+      - 'site/ads-loader.js'
+      - 'site/ads-config.js'
+      - 'site/index.html'
+      - 'site/privacy.html'
+      - 'tests/ad-loader.test.cjs'
+      - '.github/workflows/verify-ad-loader.yml'
+  pull_request:
+    paths:
+      - 'site/ads-loader.js'
+      - 'site/ads-config.js'
+      - 'site/index.html'
+      - 'site/privacy.html'
+      - 'tests/ad-loader.test.cjs'
+      - '.github/workflows/verify-ad-loader.yml'
+  workflow_dispatch:
+jobs:
+  ad-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          node --check site/ads-config.js
+          node --check site/ads-loader.js
+      - name: Verify mobile and desktop ads and visitor opt-out behavior
+        run: node --test tests/ad-loader.test.cjs

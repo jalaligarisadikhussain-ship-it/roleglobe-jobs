@@ -1,12 +1,13 @@
 /*
  * RoleGlobe Jobs ad configuration (SITE SPECIFIC).
  * AdSense site review is pending; AdSense script must NOT load.
- * Adsterra can load only after an explicit visitor opt-in.
+ * Site-owner requested default display on Cloudflare Pages without an initial popup.
  * Adsterra approved website #6162187; ad unit codes need per-format verification.
  * Native Banner #32000718, 300x250 #32000719, 728x90 #32000720, and mobile 320x50 #32000721 codes supplied by owner.
  * Professional placement policy: no native banner, at most 2 display ads per device.
- * Owner requested activation of Adsterra. Responsive opt-in consent gate
- * and privacy disclosure are included. Publisher must still review regional compliance.
+ * Previously saved opt-outs, Global Privacy Control and the footer preference
+ * control are preserved. Publisher must review consent/CMP requirements for
+ * markets where third-party ad tracking requires prior consent.
  */
 window.RG_ADS = Object.freeze({
   adsense: Object.freeze({
@@ -17,6 +18,7 @@ window.RG_ADS = Object.freeze({
   }),
   adsterra: Object.freeze({
     enabled: true,
+    automaticDisplay: true,
     websiteApproved: true,
     websiteId: "6162187",
     nativeBanner: Object.freeze({
