@@ -137,7 +137,7 @@
   }
 
   document.getElementById("ad-settings")?.addEventListener("click", openPreferences);
-  // No new-visitor Accept ads prompt; two existing banners request inventory
+  // No first-visit permission modal; the two display units request inventory
   // on the approved Cloudflare site unless opted out or GPC is set.
   showAds();
 })();

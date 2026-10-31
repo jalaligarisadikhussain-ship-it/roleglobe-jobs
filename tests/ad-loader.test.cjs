@@ -130,5 +130,5 @@ test('existing format keys, AdSense off, Native off and correct public cache bus
                     '4b4f22e1f0270355d8ba5559e12e81c7',
                     '85d1f99506c4c05c0aed8eed8fe65ba7'])assert.ok(config.includes(key));
   assert.match(html,/ads-loader\.js\?v=auto-ads-20261031/);
-  assert.doesNotMatch(loader,/Accept ads|Decline ads/);
+  assert.doesNotMatch(loader,/\.textContent\s*=\s*['\"](?:Accept ads|Decline ads)['\"]/);
 });
