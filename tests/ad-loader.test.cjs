@@ -14,7 +14,17 @@ function fixture({hostname='roleglobe-jobs.pages.dev',choice=null,gpc=false}={})
 }
 test('Cloudflare direct tag uses one Native Banner script and container, without custom iframes',()=>{let f=fixture();assert.equal(f.scripts.length,1);assert.equal(f.scripts[0].src,'https://bauval.org/21/db9986460be31be0bad5b7387ff7c743');assert.equal(f.scripts[0].attrs['data-cfasync'],'false');assert.equal(f.ad.children.filter(n=>n.tagName==='DIV').length,1);assert.equal(f.ad.children.filter(n=>n.tagName==='IFRAME').length,0);assert.equal(f.ad.dataset.visible,'true');});
 test('Refusals and GPC block all ad requests',()=>{assert.equal(fixture({choice:'declined'}).scripts.length,0);assert.equal(fixture({gpc:true}).scripts.length,0);});
-test('Wrong host and spoofed subdomains block ad requests',()=>{for(const hostname of ['localhost','example.org','roleglobe-jobs.pages.dev.evil.invalid'])assert.equal(fixture({hostname}).scripts.length,0);});
+test('Wrong host and spoofed subdomains block ad requests',()=>{for(const hostname of ['localhost','example.org','roleglobe-jobs.pages.dev.evil.invalid','preview.roleglobe-jobs.pages.dev'])assert.equal(fixture({hostname}).scripts.length,0);});
 test('Ad preference opt-out reloads and still offers opt-in control',()=>{const f=fixture();f.settings.events.click();assert.ok(f.findButton('Turn ads off'));f.findButton('Turn ads off').events.click();assert.equal(f.reloads,1);assert.equal(f.store.get('roleglobe-ad-choice-v1'),'declined');});
 test('Previously refused visitor can opt in',()=>{const f=fixture({choice:'declined'});f.settings.events.click();f.findButton('Turn ads on').events.click();assert.equal(f.scripts.length,1);});
 test('Only one direct unit, AdSense off and no legacy banner integration',()=>{assert.match(config,/adsense:\s*Object\.freeze\(\{\s*enabled:\s*false/);assert.match(config,/nativeBanner:\s*Object\.freeze\(\{[\s\S]*?enabled:\s*true/);assert.doesNotMatch(loader,/createElement\(["']iframe/);assert.doesNotMatch(html,/role-globe-mobile-320x50|role-globe-leaderboard-728x90|role-globe-rectangle-300x250/);assert.match(html,/id="role-globe-native-ad"/);});
+
+// Adsterra support prohibits publisher-created ad-code iframes and unsupported origins.
+test('Cloudflare headers block framing of this publisher page and scripts bind to the approved hostname only',()=>{
+ const headers=fs.readFileSync('site/_headers','utf8');
+ assert.match(headers,/X-Frame-Options: DENY/);
+ assert.match(headers,/frame-ancestors 'none'/);
+ assert.doesNotMatch(loader,/createElement\(["']iframe["']\)/);
+ const preview=fixture({hostname:'branch.roleglobe-jobs.pages.dev'});
+ assert.equal(preview.scripts.length,0);
+});

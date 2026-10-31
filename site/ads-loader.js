@@ -5,7 +5,7 @@ const config=window.RG_ADS;
 if(!config?.adsterra?.enabled||config.adsterra.automaticDisplay!==true)return;
 const HOSTNAME="roleglobe-jobs.pages.dev",STORAGE_KEY="roleglobe-ad-choice-v1",COOKIE_KEY="rg_ad_choice",MAX_AGE=60*60*24*180;
 let adsMounted=false;
-function validHost(){const hostname=window.location?.hostname||"";return hostname===HOSTNAME||hostname.endsWith("."+HOSTNAME)}
+function validHost(){const hostname=window.location?.hostname||"";return hostname===HOSTNAME}
 function privacyBlocked(){return window.navigator?.globalPrivacyControl===true}
 function cookieChoice(){try{const e=document.cookie.split(";").map(x=>x.trim()).find(x=>x.startsWith(COOKIE_KEY+"="));const c=e?decodeURIComponent(e.slice(COOKIE_KEY.length+1)):null;return c==="accepted"||c==="declined"?c:null}catch{return null}}
 function savedChoice(){const cookie=cookieChoice();if(cookie)return cookie;for(const store of [globalThis.localStorage,globalThis.sessionStorage]){try{const v=store?.getItem(STORAGE_KEY);if(v==="accepted"||v==="declined")return v}catch{}}return null}
