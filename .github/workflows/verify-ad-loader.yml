@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - 'site/ads-loader.js'
+      - 'site/video-ads-config.js'
+      - 'site/video-ads-loader.js'
+      - 'tests/video-ads.test.cjs'
       - 'site/ads-config.js'
       - 'site/index.html'
       - 'site/_headers'
@@ -12,6 +15,9 @@ on:
   pull_request:
     paths:
       - 'site/ads-loader.js'
+      - 'site/video-ads-config.js'
+      - 'site/video-ads-loader.js'
+      - 'tests/video-ads.test.cjs'
       - 'site/ads-config.js'
       - 'site/index.html'
       - 'site/_headers'
@@ -31,5 +37,7 @@ jobs:
         run: |
           node --check site/ads-config.js
           node --check site/ads-loader.js
+          node --check site/video-ads-config.js
+          node --check site/video-ads-loader.js
       - name: Verify mobile and desktop ads and visitor opt-out behavior
-        run: node --test tests/ad-loader.test.cjs
+        run: node --test tests/*.test.cjs
