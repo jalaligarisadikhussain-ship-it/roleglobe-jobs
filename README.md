@@ -18,15 +18,10 @@ The workflow `.github/workflows/daily-jobs.yml` runs daily at 02:17 UTC (best ef
 
 ## Ads and monetization
 
-RoleGlobe uses a professional **two-slot maximum per page/device** layout, rather than four competing placements:
+**Publisher iframe warning (31 October 2026):** Adsterra support explicitly stated that placing ad codes inside custom publisher iframes is not permitted and could result in suspension. The Cloudflare site now uses **one direct account-supplied Native Banner tag** (unit 32000718) in the normal webpage DOM. Previous display-unit IDs are retained as **disabled** configuration only; no legacy ad-unit HTML is embedded.
 
-- After the categories, Adsterra **728×90 desktop** or **320×50 mobile** banner (one, depending on viewport).
-- After the job listing section, one **300×250** unit (desktop and mobile).
-- The experimental **native ad unit is disabled** to keep the interface uncluttered.
+Existing footer ad preferences, visitor opt-out and Global Privacy Control behavior remain. Adsterra video-only inventory is not activated: it requires a specific supported unit and written provider instructions. Category filtering for gambling/adult/scams is **not verified** and should be requested in the publisher dashboard. Account approval does not imply ad creative approval or exemption from consent requirements.
 
-Advertising containers are mounted automatically on the RoleGlobe Cloudflare Pages host for visitors who have not opted out and whose browsers do not send Global Privacy Control. No first-visit Accept ads popup is shown. No blank boxes, no popups or forced redirects are authored by RoleGlobe. Ads use clearly marked **Advertisement** labels and do not interrupt job cards or apply controls. Individual ad creative and potential third-party behavior are controlled by the ad provider, not by our CSS; configure unwanted categories in the Adsterra publisher dashboard and contact Adsterra if a unit is intrusive.
-
-The Adsterra site-specific format keys are already configured; the site-owner must verify that all ad units are active and meet content/consent policies. **Google AdSense remains disabled** pending independent site approval. Never run AdSense and Adsterra in the same container; add separate approved units only after Google authorizes the site. Advertising results and revenue are not guaranteed.
 
 ## Before public launch
 

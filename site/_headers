@@ -23,3 +23,6 @@
 
 /data/jobs.json
   Cache-Control: no-cache, must-revalidate
+
+/ad-units/*
+  Cache-Control: no-store

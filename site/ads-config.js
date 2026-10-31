@@ -4,7 +4,7 @@
  * Site-owner requested default display on Cloudflare Pages without an initial popup.
  * Adsterra approved website #6162187; ad unit codes need per-format verification.
  * Native Banner #32000718, 300x250 #32000719, 728x90 #32000720, and mobile 320x50 #32000721 codes supplied by owner.
- * Professional placement policy: no native banner, at most 2 display ads per device.
+ * Provider warning: publisher-side iframes are prohibited. One original direct Native Banner tag per page; display units retained for future provider-approved migration only.
  * Previously saved opt-outs, Global Privacy Control and the footer preference
  * control are preserved. Publisher must review consent/CMP requirements for
  * markets where third-party ad tracking requires prior consent.
@@ -23,7 +23,7 @@ window.RG_ADS = Object.freeze({
     websiteId: "6162187",
     nativeBanner: Object.freeze({
       unitId: "32000718",
-      enabled: false,
+      enabled: true,
       scriptUrl: "https://bauval.org/21/db9986460be31be0bad5b7387ff7c743",
       containerId: "container-db9986460be31be0bad5b7387ff7c743",
       placementId: "role-globe-native-ad"
@@ -31,7 +31,7 @@ window.RG_ADS = Object.freeze({
     banners: Object.freeze({
       rectangle300x250: Object.freeze({
         unitId: "32000719",
-        enabled: true,
+        enabled: false,
         codeReceived: true,
         key: "047af0bf3bc3ecc33e421219245a9969",
         format: "iframe",
@@ -43,7 +43,7 @@ window.RG_ADS = Object.freeze({
       }),
       leaderboard728x90: Object.freeze({
         unitId: "32000720",
-        enabled: true,
+        enabled: false,
         codeReceived: true,
         key: "4b4f22e1f0270355d8ba5559e12e81c7",
         format: "iframe",
@@ -55,7 +55,7 @@ window.RG_ADS = Object.freeze({
       }),
       mobile320x50: Object.freeze({
         unitId: "32000721",
-        enabled: true,
+        enabled: false,
         codeReceived: true,
         key: "85d1f99506c4c05c0aed8eed8fe65ba7",
         format: "iframe",
