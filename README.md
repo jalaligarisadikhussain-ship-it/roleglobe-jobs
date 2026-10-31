@@ -37,10 +37,14 @@ Add a genuine contact email and amend `site/contact.html`, confirm actual Pages 
 - After property verification, open **Indexing → Sitemaps**, submit `sitemap.xml`; optionally use URL inspection on homepage and career guide URL to request indexing.
 - Submission does not guarantee indexing or rankings. Job cards use dynamically loaded JSON and do not currently have individual indexable URLs; add distinct permitted job detail pages only after content/redistribution permissions are reviewed.
 
-## Adsterra
+## Adsterra — compliance update (31 October 2026)
 
-RoleGlobe automatically requests one responsive banner plus one 300×250 display banner on the Cloudflare Pages host; native ads remain disabled. Visitors can turn ads off via the footer Ad preferences control, and GPC/saved refusals block loading. Google AdSense remains disabled pending approval. Publisher remains responsible for consent and ad policy checks in the jurisdictions served.
+Adsterra support warned that embedding publisher ad codes inside a custom iframe violates its terms and may result in account suspension. The site now requests only **one direct Native Banner ad (unit 32000718)** using the provided ad tag and container in the main page DOM. The former desktop/mobile/rectangle banner units remain **disabled** and their old iframe wrapper HTML files have been removed from the repository. The direct Native Banner is not a video-only format.
 
-## 31 October 2026 — automatic ad requests (owner instruction)
+Prior advertising refusals, Global Privacy Control and the visitor's footer preferences continue to be honored. Google AdSense remains disabled. Ad content category exclusions and jurisdiction-dependent consent compliance have **not been confirmed** by the provider. Live Cloudflare deployment and creative rendering must be verified separately.
 
-The previous first-visit “Accept ads” popup was removed. Adsterra's two existing display placements now request ads directly from the RoleGlobe Cloudflare Pages hostname when no prior opt-out or GPC signal is present. The preference panel is only opened manually from the footer. This implements owner-requested site behavior, **not an assurance of live Adsterra fill** or permission to track visitors in regions requiring prior consent. Review a regional CMP and provider policies before advertising to markets where explicit consent is required. Other websites remain untouched.
+
+## 31 October 2026 — previous ad-format implementation
+
+Earlier two-display-banner plans are superseded by the Adsterra compliance update above. Do not restore custom iframe wrappers or two display units per page without explicit written publisher guidance.
+
