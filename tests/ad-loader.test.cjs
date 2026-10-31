@@ -75,9 +75,9 @@ test('fresh desktop visitors request two display units immediately; no popup',()
   assert.equal(f.nodes.get('role-globe-mobile-320x50').children.length,0);
   const leader=f.nodes.get('role-globe-leaderboard-728x90').children[0];
   const rectangle=f.nodes.get('role-globe-rectangle-300x250').children[0];
-  assert.equal(leader.src,'/ad-units/leaderboard-728x90.html');
+  assert.equal(leader.src,'/ad-units/leaderboard-728x90.html?v=instagram-eager-20261031');
   assert.equal(leader.height,'90');
-  assert.equal(rectangle.src,'/ad-units/rectangle-300x250.html');
+  assert.equal(rectangle.src,'/ad-units/rectangle-300x250.html?v=instagram-eager-20261031');
   assert.equal(rectangle.height,'250');
 });
 test('fresh mobile visitors load only mobile 320x50 plus 300x250, no popup',()=>{
@@ -85,7 +85,7 @@ test('fresh mobile visitors load only mobile 320x50 plus 300x250, no popup',()=>
   assert.equal(f.count,2);
   assert.equal(f.nodes.get('role-globe-leaderboard-728x90').children.length,0);
   const mobile=f.nodes.get('role-globe-mobile-320x50').children[0];
-  assert.equal(mobile.src,'/ad-units/mobile-320x50.html');
+  assert.equal(mobile.src,'/ad-units/mobile-320x50.html?v=instagram-eager-20261031');
   assert.equal(mobile.height,'50');
   assert.equal(f.dialog,null);
 });
@@ -129,7 +129,7 @@ test('existing format keys, AdSense off, Native off and correct public cache bus
   for(const key of ['047af0bf3bc3ecc33e421219245a9969',
                     '4b4f22e1f0270355d8ba5559e12e81c7',
                     '85d1f99506c4c05c0aed8eed8fe65ba7'])assert.ok(config.includes(key));
-  assert.match(html,/ads-loader\.js\?v=auto-ads-no-popup-20261031/);
+  assert.match(html,/ads-loader\.js\?v=auto-ads-ig-eager-20261031/);
   assert.doesNotMatch(loader,/\.textContent\s*=\s*['\"](?:Accept ads|Decline ads)['\"]/);
 });
 
@@ -138,9 +138,28 @@ test('Cloudflare browser caches must revalidate old consent popup assets',()=>{
   assert.match(headers,/\/index\.html\n  Cache-Control: no-cache, must-revalidate/);
   assert.match(headers,/\/ads-loader\.js\n  Cache-Control: no-cache, must-revalidate/);
   assert.match(headers,/\/ads-config\.js\n  Cache-Control: no-cache, must-revalidate/);
-  assert.match(html,/ads-config\.js\?v=auto-ads-no-popup-20261031/);
-  assert.match(html,/ads-loader\.js\?v=auto-ads-no-popup-20261031/);
+  assert.match(html,/ads-config\.js\?v=auto-ads-ig-eager-20261031/);
+  assert.match(html,/ads-loader\.js\?v=auto-ads-ig-eager-20261031/);
   const fixtureData=fixture();
   assert.equal(fixtureData.dialog,null);
   assert.equal(fixtureData.count,2);
+});
+
+test('Instagram browser friendly load: visible early banner with eager ad frames', () => {
+  const f=fixture({mobile:true});
+  const m=f.nodes.get('role-globe-mobile-320x50').children[0];
+  const r=f.nodes.get('role-globe-rectangle-300x250').children[0];
+  assert.equal(m.loading,'eager');
+  assert.equal(r.loading,'eager');
+  assert.ok(html.indexOf('id="role-globe-mobile-320x50"') > html.indexOf('<main>'));
+  assert.ok(html.indexOf('id="role-globe-mobile-320x50"') < html.indexOf('class="wrap hero"'));
+  assert.ok(html.indexOf('id="role-globe-leaderboard-728x90"') < html.indexOf('class="wrap hero"'));
+  assert.equal(f.dialog,null);
+  assert.equal(f.count,2);
+});
+test('ad units use explicit global atOptions compatible with provider format',()=>{
+  for (const file of ['mobile-320x50.html','rectangle-300x250.html','leaderboard-728x90.html']) {
+    const source=fs.readFileSync('site/ad-units/'+file,'utf8');
+    assert.match(source,/<script>var atOptions =/);
+  }
 });

@@ -57,7 +57,7 @@
     const frame = document.createElement("iframe");
     frame.src = url;
     frame.title = label;
-    frame.loading = "lazy";
+    frame.loading = "eager";
     frame.referrerPolicy = "strict-origin-when-cross-origin";
     frame.width = String(width);
     frame.height = String(height);
@@ -76,12 +76,12 @@
     const mobile = window.matchMedia("(max-width:720px)").matches;
     if (mobile) {
       if (b.mobile320x50.enabled)
-        mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html", 320, 50, "Mobile advertisement");
+        mountUnit(b.mobile320x50.placementId, "/ad-units/mobile-320x50.html?v=instagram-eager-20261031", 320, 50, "Mobile advertisement");
     } else if (b.leaderboard728x90.enabled) {
-      mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html", 728, 90, "Leaderboard advertisement");
+      mountUnit(b.leaderboard728x90.placementId, "/ad-units/leaderboard-728x90.html?v=instagram-eager-20261031", 728, 90, "Leaderboard advertisement");
     }
     if (b.rectangle300x250.enabled)
-      mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html", 300, 250, "Advertisement");
+      mountUnit(b.rectangle300x250.placementId, "/ad-units/rectangle-300x250.html?v=instagram-eager-20261031", 300, 250, "Advertisement");
   }
   function dismissDialog() {
     document.getElementById("ad-consent")?.remove();
