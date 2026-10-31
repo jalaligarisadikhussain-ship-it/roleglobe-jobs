@@ -1,1 +1,2 @@
-# New site: ads disabled pending independent AdSense and Adsterra approvals.
+# Google AdSense publisher declaration; AdSense ads remain disabled pending approval.
+google.com, pub-8073443569494348, DIRECT, f08c47fec0942fa0

@@ -13,7 +13,7 @@ window.RG_ADS = Object.freeze({
   adsense: Object.freeze({
     enabled: false,
     reviewStatus: "requested",
-    publisherId: "ca-pub-4312394725152098",
+    publisherId: "ca-pub-8073443569494348",
     slotId: ""
   }),
   adsterra: Object.freeze({
