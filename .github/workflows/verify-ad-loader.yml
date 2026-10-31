@@ -5,6 +5,8 @@ on:
       - 'site/ads-loader.js'
       - 'site/ads-config.js'
       - 'site/index.html'
+      - 'site/app.js'
+      - 'tests/pagination.test.cjs'
       - 'site/_headers'
       - 'site/privacy.html'
       - 'tests/ad-loader.test.cjs'
@@ -14,6 +16,8 @@ on:
       - 'site/ads-loader.js'
       - 'site/ads-config.js'
       - 'site/index.html'
+      - 'site/app.js'
+      - 'tests/pagination.test.cjs'
       - 'site/_headers'
       - 'site/privacy.html'
       - 'tests/ad-loader.test.cjs'
@@ -31,5 +35,8 @@ jobs:
         run: |
           node --check site/ads-config.js
           node --check site/ads-loader.js
+          node --check site/app.js
       - name: Verify mobile and desktop ads and visitor opt-out behavior
         run: node --test tests/ad-loader.test.cjs
+      - name: Verify job pagination and filter reset
+        run: node --test tests/pagination.test.cjs
