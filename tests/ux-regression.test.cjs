@@ -31,6 +31,27 @@ test('job search is accessible and feed age is not disguised as fresh',()=>{
   assert.match(js, /72\*60\*60\*1000/);
 });
 
+
+test('sitemap URLs resolve to real local pages, including original career guides',()=>{
+  const xml=fs.readFileSync('site/sitemap.xml','utf8');
+  const paths=[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>new URL(match[1]));
+  assert(paths.length>=12);
+  const seen=new Set();
+  for(const url of paths){
+    assert.equal(url.hostname,'roleglobe-jobs.pages.dev');
+    assert(!seen.has(url.pathname),'Repeated sitemap URL: '+url.pathname);
+    seen.add(url.pathname);
+    const file=url.pathname==='/'?'site/index.html':'site'+url.pathname+'.html';
+    assert(fs.existsSync(file),'Broken sitemap page: '+file);
+  }
+  for(const slug of ['entry-level-job-search-plan','it-vs-non-it-career-paths']){
+    const page=fs.readFileSync('site/guides/'+slug+'.html','utf8');
+    assert(page.length>5000);
+    assert(page.includes('"@type":"Article"'));
+    assert(html.includes('href="/guides/'+slug+'"'));
+  }
+});
+
 test('homepage offers consistent share metadata while preserving ad safety',()=>{
   for(const tag of ['twitter:card','twitter:title','twitter:description','og:site_name']) assert(html.includes(tag));
   assert(html.includes('https://roleglobe-jobs.pages.dev/'));
