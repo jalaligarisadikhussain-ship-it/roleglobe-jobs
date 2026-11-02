@@ -23,6 +23,14 @@ function filter(){
 }
 function draw(){
  const matching=filter(),arr=matching.slice(0,visibleCount);
+ // Buttons mirror current select filters; no extra per-user data is collected.
+ document.querySelectorAll(".quick-filter").forEach(btn=>{
+  const kind=btn.dataset.quick;
+  const active=kind==="all"?(!$("cat").value&&!$("work").value&&!$("exp").value):
+   kind==="IT"||kind==="Non-IT"?$("cat").value===kind:
+   kind==="Remote"?$("work").value==="Remote":$("exp").value==="Entry-level";
+  btn.setAttribute("aria-pressed",String(active));
+ });
  $("job-results").innerHTML=arr.length?arr.map(j=>{
   const checked=j.last_verified&&Number.isFinite(Date.parse(j.last_verified))?new Date(j.last_verified).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"date not available";
   return '<article class="card"><div><span class="company">'+escapeHTML(j.company)+'</span><h3>'+escapeHTML(j.title)+'</h3><span class="badge">'+escapeHTML(j.category||"Career")+'</span></div><div class="metadata">📍 '+escapeHTML(j.location)+' · '+escapeHTML(j.country)+'<br>💼 '+escapeHTML(j.workplace)+' · '+escapeHTML(j.experience)+'<br>Source: '+escapeHTML(j.source_name||"Employer board")+'<br>Employer feed checked: '+escapeHTML(checked)+'</div><div class="actions"><button type="button" class="save" aria-pressed="'+saved.has(j.id)+'" aria-label="'+(saved.has(j.id)?"Remove saved job: ":"Save job: ")+escapeHTML(j.title)+'" data-save="'+escapeHTML(j.id)+'">'+(saved.has(j.id)?"♥ Saved":"♡ Save")+'</button><a class="apply" target="_blank" rel="noopener noreferrer" aria-label="View '+escapeHTML(j.title)+' at the employer source" href="'+escapeHTML(safeApplyUrl(j.apply_url))+'">Apply at source ↗</a></div></article>';
@@ -38,6 +46,14 @@ function draw(){
  }));
 }
 ["q","cat","country","work","exp","sort","saved-only"].forEach(id=>$(id)?.addEventListener("input",()=>{visibleCount=PAGE_SIZE;draw()}));
+document.querySelectorAll(".quick-filter").forEach(btn=>btn.addEventListener("click",()=>{
+ const kind=btn.dataset.quick;
+ for(const id of ["cat","work","exp"])$(id).value="";
+ if(kind==="IT"||kind==="Non-IT")$("cat").value=kind;
+ if(kind==="Remote")$("work").value="Remote";
+ if(kind==="Entry-level")$("exp").value="Entry-level";
+ visibleCount=PAGE_SIZE;draw();
+}));
 $("clear-filters")?.addEventListener("click",()=>{
  $("q").value="";$("hero-q").value="";
  for(const id of ["cat","country","work","exp"])$(id).value="";
