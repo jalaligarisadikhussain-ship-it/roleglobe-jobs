@@ -64,6 +64,10 @@ def normalize(source, data):
         idstr=p+":"+board+":"+str(id_);slug=hashlib.sha256(idstr.encode()).hexdigest()[:12]
         results.append({"id":idstr,"slug":slug,"title":title,"company":company,"country":country,"location":location,"category":"IT" if CATEGORIES.search(title) else "Non-IT","workplace":work,"experience":exp,"apply_url":str(link),"source_name":p.title()+" / "+company,"source_key":p+":"+board})
     return results
+def publication_safe(previous_count, new_count):
+    """Reject sudden near-total feed loss; preserve last good file for human review."""
+    return previous_count < 50 or new_count >= max(10, previous_count // 5)
+
 def main():
     now=dt.datetime.now(UTC);cfg=json.loads(CONFIG.read_text(encoding="utf-8"))["sources"];current=json.loads(DATA.read_text(encoding="utf-8"))
     previous={j["id"]:j for j in current.get("jobs",[]) if isinstance(j,dict) and j.get("id")}
@@ -90,6 +94,9 @@ def main():
             last=dt.datetime.fromisoformat(job.get("last_verified",""))
             if now-last <= dt.timedelta(hours=48):loaded[job["id"]]=job
         except ValueError: pass
+    if not publication_safe(len(previous), len(loaded)):
+        print(f"Safety stop: employer feed collapsed from {len(previous)} to {len(loaded)} listings. Retaining last good publication until investigated.",file=sys.stderr)
+        return 1
     out={"last_updated":now.isoformat(),"source_results":statuses,"jobs":sorted(loaded.values(),key=lambda j:(j["company"],j["title"]))[:1200]}
     DATA.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("Published",len(out["jobs"]),"jobs")
