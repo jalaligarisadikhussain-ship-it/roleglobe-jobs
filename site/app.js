@@ -40,6 +40,7 @@ function draw(){
  }).join(""):'<div class="empty"><strong>No matching jobs right now</strong>Only successfully checked employer-source listings are displayed. Adjust or clear the filters, or revisit after the next daily update.</div>';
  const more=$("show-more-jobs"),count=$("result-count");
  const savedCount=$("saved-count");if(savedCount)savedCount.textContent=jobs.filter(j=>saved.has(j.id)).length+" saved";
+ const exportButton=$("export-saved");if(exportButton)exportButton.disabled=!jobs.some(j=>saved.has(j.id));
  if(count)count.textContent=matching.length?`Showing ${arr.length} of ${matching.length} matching jobs`:"No matching jobs";
  if(more){more.hidden=arr.length>=matching.length;more.textContent=`Show ${Math.min(PAGE_SIZE,matching.length-arr.length)} more jobs`;more.onclick=()=>{visibleCount+=PAGE_SIZE;draw();};}
  document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
@@ -57,6 +58,20 @@ document.querySelectorAll(".quick-filter").forEach(btn=>btn.addEventListener("cl
  if(kind==="Entry-level")$("exp").value="Entry-level";
  visibleCount=PAGE_SIZE;draw();
 }));
+// Export only explicit browser-local bookmarks, without sending them to a server.
+$("export-saved")?.addEventListener("click",()=>{
+ const items=jobs.filter(j=>saved.has(j.id));
+ if(!items.length)return;
+ // Defend spreadsheet users from formula injection in third-party employer fields.
+ const cell=value=>{let v=String(value??"").replace(/[\r\n]+/g," ").trim();if(/^[=+@\-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';};
+ const columns=["Company","Job title","Country","Location","Workplace","Experience","Official apply URL"];
+ const records=items.map(j=>[j.company,j.title,j.country,j.location,j.workplace,j.experience,safeApplyUrl(j.apply_url)]);
+ const csv="\uFEFF"+[columns,...records].map(row=>row.map(cell).join(",")).join("\r\n")+"\r\n";
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob),link=document.createElement("a");
+ link.href=url;link.download="roleglobe-saved-jobs.csv";link.style.display="none";document.body.appendChild(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),30000);
+});
 $("clear-filters")?.addEventListener("click",()=>{
  $("q").value="";$("hero-q").value="";
  for(const id of ["cat","country","work","exp"])$(id).value="";
