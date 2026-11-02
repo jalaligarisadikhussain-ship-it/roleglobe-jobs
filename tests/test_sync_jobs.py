@@ -1,6 +1,6 @@
 """Offline regression tests for RoleGlobe source location classification and link safety."""
 import unittest
-from scripts.sync_jobs import normalize, domain_ok
+from scripts.sync_jobs import normalize, domain_ok, publication_safe
 
 
 class SyncQualityTests(unittest.TestCase):
@@ -24,6 +24,13 @@ class SyncQualityTests(unittest.TestCase):
         self.assertEqual(self.item("Remote, location not specified")[0]["country"], "Other")
         self.assertEqual(self.item("Hyderabad, India")[0]["country"], "India")
         self.assertEqual(self.item("Toronto, Canada")[0]["country"], "Canada")
+
+    def test_collapse_protection_keeps_last_good_feed(self):
+        self.assertFalse(publication_safe(511, 0))
+        self.assertFalse(publication_safe(511, 50))
+        self.assertTrue(publication_safe(511, 300))
+        self.assertTrue(publication_safe(0, 0))
+        self.assertTrue(publication_safe(20, 0))
 
     def test_only_supported_official_ats_links(self):
         self.assertEqual(len(self.item("Remote - US", "https://evil.example/jobs/123")), 0)
