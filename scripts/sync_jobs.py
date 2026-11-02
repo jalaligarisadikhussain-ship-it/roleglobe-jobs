@@ -9,9 +9,9 @@ PROVIDERS = {"greenhouse":"boards-api.greenhouse.io", "lever":"api.lever.co", "a
 CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|data platform|data analyst|network engineer|site reliability|frontend|backend|full.?stack|security engineer|security scientist|ai engineer|applied scientist|ai research|it support|qa engineer|systems engineer|infrastructure|analytics engineer|integration engineer|platform engineer|forward deployed engineer|product engineer|engineering manager|ux engineer|business engineer|solutions engineer|technical support|technical quality|data architect|database|embedded engineer|ml engineer",re.I)
 COUNTRIES = {
     "India":r"india|bengaluru|bangalore|hyderabad|mumbai|delhi|chennai|pune|noida",
-    "United States":r"united states|usa|u\\.?s\\.?a\\.?|u\\.?s\\.?|new york|california|seattle|boston|texas|chicago|washington|austin",
+    "United States":r"united states|usa|u\.?s\.?a\.?|u\.?s\.?|new york|california|seattle|boston|texas|chicago|washington|austin",
     "Canada":r"canada|toronto|vancouver|montreal|ottawa",
-    "United Kingdom":r"united kingdom|u\\.?k\\.?|london|manchester|england|scotland",
+    "United Kingdom":r"united kingdom|u\.?k\.?|london|manchester|england|scotland",
     "Germany":r"germany|berlin|munich|frankfurt",
     "Australia":r"australia|sydney|melbourne|brisbane",
     "United Arab Emirates":r"uae|dubai|abu dhabi",
