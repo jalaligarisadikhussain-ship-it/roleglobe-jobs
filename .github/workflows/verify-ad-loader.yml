@@ -10,6 +10,8 @@ on:
       - 'scripts/sync_jobs.py'
       - 'tests/test_sync_jobs.py'
       - 'tests/pagination.test.cjs'
+      - 'tests/data-integrity.test.cjs'
+      - 'site/data/jobs.json'
       - 'site/_headers'
       - 'site/privacy.html'
       - 'tests/ad-loader.test.cjs'
@@ -24,6 +26,8 @@ on:
       - 'scripts/sync_jobs.py'
       - 'tests/test_sync_jobs.py'
       - 'tests/pagination.test.cjs'
+      - 'tests/data-integrity.test.cjs'
+      - 'site/data/jobs.json'
       - 'site/_headers'
       - 'site/privacy.html'
       - 'tests/ad-loader.test.cjs'
@@ -49,5 +53,7 @@ jobs:
           node --check site/app.js
       - name: Verify mobile and desktop ads and visitor opt-out behavior
         run: node --test tests/ad-loader.test.cjs
+      - name: Verify published employer-source data integrity
+        run: node --test tests/data-integrity.test.cjs
       - name: Verify job pagination and filter reset
         run: node --test tests/pagination.test.cjs
