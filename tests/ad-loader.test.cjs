@@ -33,3 +33,11 @@ test('Cloudflare headers block framing of this publisher page and scripts bind t
 test('Publisher ad iframe wrapper must never return to static Cloudflare output',()=>{
  assert.equal(fs.existsSync('site/ad-units'),false,'Do not re-add site/ad-units: Adsterra forbids publisher iframe wrappers');
 });
+
+test('Native ad slot cannot clip or resize provider-rendered creative frames',()=>{
+ const rule=html.match(/\.ad-placement\{([^}]+)\}/)?.[1]||'';
+ assert.match(rule,/overflow:visible/);
+ assert.doesNotMatch(html,/\.ad-placement iframe\{/);
+ assert.match(html,/id="role-globe-native-ad"/);
+ assert.doesNotMatch(loader,/createElement\(["']iframe["']\)/);
+});
