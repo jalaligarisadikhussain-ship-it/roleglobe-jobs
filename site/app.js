@@ -9,7 +9,9 @@ try{saved=new Set(JSON.parse(localStorage.getItem("rg-saved")||"[]"))}catch{save
 function filter(){
  const q=$("q").value.toLowerCase().trim(),cat=$("cat").value,country=$("country").value,work=$("work").value,exp=$("exp").value;
  const savedOnly=$("saved-only")?.checked===true,sort=$("sort")?.value||"company";
- const matches=jobs.filter(j=>(!q||[j.title,j.company,j.location,j.country].join(" ").toLowerCase().includes(q))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id)));
+ // Exact career-field searches should filter the category, not match "it" inside "United States".
+ const queryCategory=q==="it"?"IT":(["non-it","non it","nonit"].includes(q)?"Non-IT":"");
+ const matches=jobs.filter(j=>(!q||(queryCategory?j.category===queryCategory:[j.title,j.company,j.location,j.country,j.category].join(" ").toLowerCase().includes(q)))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id)));
  return matches.sort((a,b)=>{
   if(sort==="title")return a.title.localeCompare(b.title)||a.company.localeCompare(b.company);
   if(sort==="country")return a.country.localeCompare(b.country)||a.company.localeCompare(b.company);
