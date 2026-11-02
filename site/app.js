@@ -11,10 +11,13 @@ function filter(){
  const savedOnly=$("saved-only")?.checked===true,sort=$("sort")?.value||"company";
  // Exact career-field searches should filter the category, not match "it" inside "United States".
  const queryCategory=q==="it"?"IT":(["non-it","non it","nonit"].includes(q)?"Non-IT":"");
- const matches=jobs.filter(j=>(!q||(queryCategory?j.category===queryCategory:[j.title,j.company,j.location,j.country,j.category].join(" ").toLowerCase().includes(q)))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id)));
+ const terms=q.split(/\s+/).filter(Boolean);
+ // Every search term may match a different field (e.g. "remote designer Canada").
+ const matches=jobs.filter(j=>{const searchable=[j.title,j.company,j.location,j.country,j.category,j.workplace,j.experience].join(" ").toLowerCase();return (!q||(queryCategory?j.category===queryCategory:terms.every(term=>searchable.includes(term))))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id))});
  return matches.sort((a,b)=>{
   if(sort==="title")return a.title.localeCompare(b.title)||a.company.localeCompare(b.company);
   if(sort==="country")return a.country.localeCompare(b.country)||a.company.localeCompare(b.company);
+  if(sort==="recent")return (Date.parse(b.last_verified)||0)-(Date.parse(a.last_verified)||0)||a.company.localeCompare(b.company);
   return a.company.localeCompare(b.company)||a.title.localeCompare(b.title);
  });
 }
@@ -22,9 +25,10 @@ function draw(){
  const matching=filter(),arr=matching.slice(0,visibleCount);
  $("job-results").innerHTML=arr.length?arr.map(j=>{
   const checked=j.last_verified&&Number.isFinite(Date.parse(j.last_verified))?new Date(j.last_verified).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"date not available";
-  return '<article class="card"><div><span class="company">'+escapeHTML(j.company)+'</span><h3>'+escapeHTML(j.title)+'</h3><span class="badge">'+escapeHTML(j.category||"Career")+'</span></div><div class="metadata">📍 '+escapeHTML(j.location)+' · '+escapeHTML(j.country)+'<br>💼 '+escapeHTML(j.workplace)+' · '+escapeHTML(j.experience)+'<br>Source: '+escapeHTML(j.source_name||"Employer board")+'<br>Employer feed checked: '+escapeHTML(checked)+'</div><div class="actions"><button type="button" class="save" aria-pressed="'+saved.has(j.id)+'" data-save="'+escapeHTML(j.id)+'">'+(saved.has(j.id)?"♥ Saved":"♡ Save")+'</button><a class="apply" target="_blank" rel="noopener noreferrer" aria-label="View '+escapeHTML(j.title)+' at the employer source" href="'+escapeHTML(safeApplyUrl(j.apply_url))+'">Apply at source ↗</a></div></article>';
+  return '<article class="card"><div><span class="company">'+escapeHTML(j.company)+'</span><h3>'+escapeHTML(j.title)+'</h3><span class="badge">'+escapeHTML(j.category||"Career")+'</span></div><div class="metadata">📍 '+escapeHTML(j.location)+' · '+escapeHTML(j.country)+'<br>💼 '+escapeHTML(j.workplace)+' · '+escapeHTML(j.experience)+'<br>Source: '+escapeHTML(j.source_name||"Employer board")+'<br>Employer feed checked: '+escapeHTML(checked)+'</div><div class="actions"><button type="button" class="save" aria-pressed="'+saved.has(j.id)+'" aria-label="'+(saved.has(j.id)?"Remove saved job: ":"Save job: ")+escapeHTML(j.title)+'" data-save="'+escapeHTML(j.id)+'">'+(saved.has(j.id)?"♥ Saved":"♡ Save")+'</button><a class="apply" target="_blank" rel="noopener noreferrer" aria-label="View '+escapeHTML(j.title)+' at the employer source" href="'+escapeHTML(safeApplyUrl(j.apply_url))+'">Apply at source ↗</a></div></article>';
  }).join(""):'<div class="empty"><strong>No matching jobs right now</strong>Only successfully checked employer-source listings are displayed. Adjust or clear the filters, or revisit after the next daily update.</div>';
  const more=$("show-more-jobs"),count=$("result-count");
+ const savedCount=$("saved-count");if(savedCount)savedCount.textContent=jobs.filter(j=>saved.has(j.id)).length+" saved";
  if(count)count.textContent=matching.length?`Showing ${arr.length} of ${matching.length} matching jobs`:"No matching jobs";
  if(more){more.hidden=arr.length>=matching.length;more.textContent=`Show ${Math.min(PAGE_SIZE,matching.length-arr.length)} more jobs`;more.onclick=()=>{visibleCount+=PAGE_SIZE;draw();};}
  document.querySelectorAll("[data-save]").forEach(el=>el.addEventListener("click",()=>{
@@ -43,5 +47,9 @@ $("clear-filters")?.addEventListener("click",()=>{
 });
 $("hero-form").addEventListener("submit",e=>{e.preventDefault();$("q").value=$("hero-q").value;visibleCount=PAGE_SIZE;draw();location.hash="jobs"});
 document.querySelectorAll(".category").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.cat)$("cat").value=el.dataset.cat;if(el.dataset.work)$("work").value=el.dataset.work;if(el.dataset.exp)$("exp").value=el.dataset.exp;visibleCount=PAGE_SIZE;draw()}));
-fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{jobs=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});$("last-update").textContent=jobs.length+" employer-source jobs"+(d.last_updated?" · last source sync "+new Date(d.last_updated).toLocaleDateString():" · first sync pending");draw()}).catch(()=>{$("last-update").textContent="Job feed is temporarily unavailable";draw()});
+fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{jobs=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});const lastSync=d.last_updated?Date.parse(d.last_updated):NaN;
+ const syncLabel=Number.isFinite(lastSync)?new Date(lastSync).toLocaleDateString():"not yet recorded";
+ const stale=Number.isFinite(lastSync)&&(Date.now()-lastSync)>72*60*60*1000;
+ $("last-update").textContent=jobs.length+" employer-source jobs · source feed checked "+syncLabel+(stale?" · Caution: source feed has not refreshed in over 72 hours":"");
+ draw()}).catch(()=>{$("last-update").textContent="Job feed is temporarily unavailable";draw()});
 })();
