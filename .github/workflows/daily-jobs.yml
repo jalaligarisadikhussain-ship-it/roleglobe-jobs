@@ -19,6 +19,8 @@ jobs:
           python-version: '3.12'
       - name: Sync public employer jobs
         run: python scripts/sync_jobs.py
+      - name: Verify job-source normalization and HTTPS link checks
+        run: python -m unittest discover -s tests -p 'test_sync_jobs.py' -v
       - name: Commit updated listings
         run: |
           git config user.name 'RoleGlobe Bot'
