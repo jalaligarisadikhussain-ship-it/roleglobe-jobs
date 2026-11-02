@@ -78,3 +78,13 @@ test('public ad-quality reports exist without switching provider or disabling us
  assert.match(html,/issues\/new\?template=ad-quality\.yml/);
  assert.match(ads,/automaticDisplay: true/);
 });
+
+test('saved-job CSV export stays local and rejects spreadsheet formulas',()=>{
+ assert.match(html,/id="export-saved"/);
+ assert.match(js,/\$\("export-saved"\)\?\.addEventListener\("click"/);
+ assert.match(js,/jobs\.filter\(j=>saved\.has\(j\.id\)\)/);
+ assert.match(js,/\/\^\[=\+@\\-\]\//);
+ assert.match(js,/link\.download="roleglobe-saved-jobs\.csv"/);
+ assert.match(js,/URL\.revokeObjectURL\(url\)/);
+ assert.doesNotMatch(js,/sendSavedJobsToServer/);
+});
