@@ -43,6 +43,18 @@
       "board": "linear",
       "company": "Linear",
       "enabled": true
+    },
+    {
+      "provider": "ashby",
+      "board": "ramp",
+      "company": "Ramp",
+      "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "airtable",
+      "company": "Airtable",
+      "enabled": true
     }
   ]
 }
