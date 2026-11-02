@@ -23,6 +23,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_sync_jobs.py' -v
       - name: Validate output before public publishing
         run: node --test tests/data-integrity.test.cjs
+      - name: Summarize employer board health and publication freshness
+        run: node scripts/site_health_report.cjs --strict
       - name: Commit updated listings
         run: |
           git config user.name 'RoleGlobe Bot'
