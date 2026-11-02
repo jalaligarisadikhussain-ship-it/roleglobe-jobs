@@ -58,3 +58,23 @@ test('homepage offers consistent share metadata while preserving ad safety',()=>
   assert.match(ads, /enabled: false,\s*reviewStatus: "requested"/);
   assert.match(ads, /unitId: "32000718",\s*enabled: true/);
 });
+
+test('premium quick filters are accessible, wired to select filters, and do not add user tracking',()=>{
+ for(const choice of ['all','IT','Non-IT','Remote','Entry-level']){
+  assert(html.includes('data-quick="'+choice+'"'));
+ }
+ assert.match(html, /role="group" aria-label="Quick job filters"/);
+ assert.match(html, /\.quick-filter\[aria-pressed="true"\]/);
+ assert.match(js, /document\.querySelectorAll\("\.quick-filter"\)\.forEach/);
+ assert.match(js, /btn\.setAttribute\("aria-pressed",String\(active\)\)/);
+ assert.match(js, /if\(kind==="Remote"\)\$\("work"\)\.value="Remote"/);
+ assert.match(js, /visibleCount=PAGE_SIZE;draw\(\)/);
+});
+
+test('public ad-quality reports exist without switching provider or disabling user choices',()=>{
+ const report=fs.readFileSync('.github/ISSUE_TEMPLATE/ad-quality.yml','utf8');
+ assert.match(report,/Gambling, casino or betting/);
+ assert.match(report,/do not include/i);
+ assert.match(html,/issues\/new\?template=ad-quality\.yml/);
+ assert.match(ads,/automaticDisplay: true/);
+});
