@@ -1,0 +1,32 @@
+name: Website UX and content quality
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'tests/**'
+      - '.github/workflows/ux-quality.yml'
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'tests/**'
+      - '.github/workflows/ux-quality.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ux-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          node --check site/app.js
+          node --check site/ads-loader.js
+      - name: Validate employer feed and UI regression
+        run: |
+          node --test tests/data-integrity.test.cjs tests/ux-regression.test.cjs
