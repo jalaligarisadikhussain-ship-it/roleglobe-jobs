@@ -7,6 +7,8 @@ on:
       - 'site/index.html'
       - 'site/ad-units/**'
       - 'site/app.js'
+      - 'scripts/sync_jobs.py'
+      - 'tests/test_sync_jobs.py'
       - 'tests/pagination.test.cjs'
       - 'site/_headers'
       - 'site/privacy.html'
@@ -19,6 +21,8 @@ on:
       - 'site/index.html'
       - 'site/ad-units/**'
       - 'site/app.js'
+      - 'scripts/sync_jobs.py'
+      - 'tests/test_sync_jobs.py'
       - 'tests/pagination.test.cjs'
       - 'site/_headers'
       - 'site/privacy.html'
@@ -33,6 +37,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source feeds and location classification
+        run: python -m unittest discover -s tests -p 'test_sync_jobs.py' -v
       - name: Validate JavaScript syntax
         run: |
           node --check site/ads-config.js
