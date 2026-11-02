@@ -46,8 +46,22 @@ $("clear-filters")?.addEventListener("click",()=>{
  visibleCount=PAGE_SIZE;draw();
 });
 $("hero-form").addEventListener("submit",e=>{e.preventDefault();$("q").value=$("hero-q").value;visibleCount=PAGE_SIZE;draw();location.hash="jobs"});
+// Shared links deliberately omit personal bookmarks and local storage.
+function applySharedSearch(){
+ const params=new URLSearchParams(location.search);
+ const query=params.get("q");if(query){$("q").value=query.slice(0,120);$("hero-q").value=$("q").value;}
+ for(const id of ["cat","country","work","exp","sort"]){const el=$(id),v=params.get(id);if(el&&v&&[...el.options].some(o=>o.value===v))el.value=v;}
+}
+$("share-search")?.addEventListener("click",async()=>{
+ const url=new URL(location.href);url.search="";
+ const q=$("q").value.trim().slice(0,120);if(q)url.searchParams.set("q",q);
+ for(const id of ["cat","country","work","exp","sort"]){const value=$(id)?.value||"";if(value&&(id!=="sort"||value!=="company"))url.searchParams.set(id,value);}
+ url.hash="jobs";const status=$("share-status");
+ try{if(!navigator.clipboard?.writeText)throw Error("Clipboard unavailable");await navigator.clipboard.writeText(url.toString());if(status)status.textContent="Link copied";}
+ catch{if(status)status.textContent="Copy the link shown";window.prompt("Copy this job search link",url.toString());}
+});
 document.querySelectorAll(".category").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.cat)$("cat").value=el.dataset.cat;if(el.dataset.work)$("work").value=el.dataset.work;if(el.dataset.exp)$("exp").value=el.dataset.exp;visibleCount=PAGE_SIZE;draw()}));
-fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{jobs=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});const lastSync=d.last_updated?Date.parse(d.last_updated):NaN;
+fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{jobs=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});applySharedSearch();const lastSync=d.last_updated?Date.parse(d.last_updated):NaN;
  const syncLabel=Number.isFinite(lastSync)?new Date(lastSync).toLocaleDateString():"not yet recorded";
  const stale=Number.isFinite(lastSync)&&(Date.now()-lastSync)>72*60*60*1000;
  $("last-update").textContent=jobs.length+" employer-source jobs · source feed checked "+syncLabel+(stale?" · Caution: source feed has not refreshed in over 72 hours":"");
