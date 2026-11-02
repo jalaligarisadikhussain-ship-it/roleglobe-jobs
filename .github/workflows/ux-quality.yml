@@ -4,11 +4,15 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'scripts/site_health_report.cjs'
+      - 'scripts/sync_jobs.py'
       - 'tests/**'
       - '.github/workflows/ux-quality.yml'
   pull_request:
     paths:
       - 'site/**'
+      - 'scripts/site_health_report.cjs'
+      - 'scripts/sync_jobs.py'
       - 'tests/**'
       - '.github/workflows/ux-quality.yml'
   workflow_dispatch:
@@ -27,6 +31,8 @@ jobs:
         run: |
           node --check site/app.js
           node --check site/ads-loader.js
+          node --check scripts/site_health_report.cjs
       - name: Validate employer feed and UI regression
         run: |
           node --test tests/data-integrity.test.cjs tests/ux-regression.test.cjs
+          node scripts/site_health_report.cjs
