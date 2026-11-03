@@ -88,3 +88,18 @@ test('saved-job CSV export stays local and rejects spreadsheet formulas',()=>{
  assert.match(js,/URL\.revokeObjectURL\(url\)/);
  assert.doesNotMatch(js,/sendSavedJobsToServer/);
 });
+
+test('every indexable RoleGlobe page has an original large social preview image',()=>{
+ const png=fs.readFileSync('site/og-share.png');
+ assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+ assert.equal(png.readUInt32BE(16),1200);
+ assert.equal(png.readUInt32BE(20),630);
+ const urls=[...fs.readFileSync('site/sitemap.xml','utf8').matchAll(/<loc>([^<]+)<\/loc>/g)];
+ for(const [,url] of urls){
+  const pathname=new URL(url).pathname;
+  const page=fs.readFileSync(pathname==='/'?'site/index.html':'site'+pathname+'.html','utf8');
+  assert(page.includes('property="og:image" content="https://roleglobe-jobs.pages.dev/og-share.png"'),url);
+  assert(page.includes('name="twitter:card" content="summary_large_image"'),url);
+  assert(page.includes('name="twitter:image" content="https://roleglobe-jobs.pages.dev/og-share.png"'),url);
+ }
+});
