@@ -32,7 +32,7 @@ def generate(data):
     from urllib.parse import urlsplit
     allowed = {"boards.greenhouse.io", "job-boards.greenhouse.io", "jobs.ashbyhq.com", "jobs.lever.co"}
     rows = sorted(data.get("jobs", []), key=lambda j: (str(j.get("company", "")).casefold(), str(j.get("title", "")).casefold()))
-    for job in rows[:1200]:
+    for job in rows[:150]:  # Bounded feed for low-bandwidth mobile subscribers.
         link = str(job.get("apply_url", ""))
         try:
             url = urlsplit(link)
