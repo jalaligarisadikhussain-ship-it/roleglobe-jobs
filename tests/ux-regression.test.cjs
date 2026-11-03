@@ -103,3 +103,10 @@ test('every indexable RoleGlobe page has an original large social preview image'
   assert(page.includes('name="twitter:image" content="https://roleglobe-jobs.pages.dev/og-share.png"'),url);
  }
 });
+
+test('relevance option weights job-title matches ahead of incidental geography',()=>{
+ assert.match(html, /<option value="relevance">Best keyword match<\/option>/);
+ assert.match(js, /if\(sort==="relevance"&&terms.length\)/);
+ assert.match(js, /String\(j.title\|\|""\)\.toLowerCase\(\)\.includes\(word\)\?8:0/);
+ assert.match(js, /String\(j.company\|\|""\)\.toLowerCase\(\)\.includes\(word\)\?4:0/);
+});
