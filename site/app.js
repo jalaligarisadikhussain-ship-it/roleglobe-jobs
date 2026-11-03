@@ -17,7 +17,13 @@ function filter(){
  const terms=q.split(/\s+/).filter(Boolean);
  // Every search term may match a different field (e.g. "remote designer Canada").
  const matches=jobs.filter(j=>{const searchable=[j.title,j.company,j.location,j.country,j.category,j.workplace,j.experience].join(" ").toLowerCase();return (!q||(queryCategory?j.category===queryCategory:terms.every(term=>searchable.includes(term))))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id))});
+ const rank=j=>terms.reduce((score,word)=>score+
+  (String(j.title||"").toLowerCase().includes(word)?8:0)+
+  (String(j.company||"").toLowerCase().includes(word)?4:0)+
+  (String(j.category||"").toLowerCase().includes(word)?2:0)+
+  (String(j.location||"").toLowerCase().includes(word)?1:0),0);
  return matches.sort((a,b)=>{
+  if(sort==="relevance"&&terms.length)return rank(b)-rank(a)||a.company.localeCompare(b.company)||a.title.localeCompare(b.title);
   if(sort==="title")return a.title.localeCompare(b.title)||a.company.localeCompare(b.company);
   if(sort==="country")return a.country.localeCompare(b.country)||a.company.localeCompare(b.company);
   if(sort==="recent")return (Date.parse(b.last_verified)||0)-(Date.parse(a.last_verified)||0)||a.company.localeCompare(b.company);
