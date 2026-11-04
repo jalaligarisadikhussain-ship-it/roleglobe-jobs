@@ -1,2 +1,2 @@
 # Google AdSense publisher declaration; AdSense ads remain disabled pending approval.
-google.com, pub-8073443569494348, DIRECT, f08c47fec0942fa0
+google.com, pub-4312394725152098, DIRECT, f08c47fec0942fa0
