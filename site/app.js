@@ -8,6 +8,14 @@ lastFrame=timestamp;ctx.clearRect(0,0,520,520);let aura=ctx.createRadialGradient
 for(let lat=-70;lat<=70;lat+=20){let t=lat*Math.PI/180;ctx.strokeStyle="#69cbfc17";ctx.beginPath();ctx.ellipse(C,C,R*Math.cos(t),Math.abs(11*Math.sin(t))+1,0,0,7);ctx.stroke()}
 for(const [lat,lon] of point){let t=lon+angle,z=Math.cos(lat)*Math.cos(t);if(z<=0)continue;let x=R*Math.cos(lat)*Math.sin(t),y=-R*Math.sin(lat);ctx.fillStyle=z>.55?"#b3faffbb":"#70d3fc80";ctx.beginPath();ctx.arc(C+x,C+y,1.4+z*.5,0,7);ctx.fill()}ctx.restore();ctx.strokeStyle="#7dddf74a";ctx.beginPath();ctx.ellipse(C,C,R+32,69,-.27,0,7);ctx.stroke();if(!reduced){angle+=.0021;requestAnimationFrame(globe)}}globe();
 const $=id=>document.getElementById(id),escapeHTML=x=>String(x||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m])),safeApplyUrl=v=>{if(typeof v!=="string"||!v.startsWith("https://")||/[\x00-\x20]/.test(v))return "";const host=v.slice(8).split(/[/?#]/)[0].toLowerCase();return /^(?:boards\.greenhouse\.io|job-boards\.greenhouse\.io|jobs\.ashbyhq\.com|jobs\.lever\.co)$/.test(host)?v:""};let jobs=[],saved,visibleCount=36;const PAGE_SIZE=36;
+// Hide stale employer records and listings with explicitly expired closing dates.
+function activeListing(j){
+ const checked=Date.parse(j?.last_verified||"");
+ if(!Number.isFinite(checked)||Date.now()-checked>48*60*60*1000)return false;
+ const deadline=j?.deadline;
+ if(typeof deadline==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(deadline)&&deadline<new Date().toISOString().slice(0,10))return false;
+ return true;
+}
 try{saved=new Set(JSON.parse(localStorage.getItem("rg-saved")||"[]"))}catch{saved=new Set()}
 function filter(){
  const q=$("q").value.toLowerCase().trim(),cat=$("cat").value,country=$("country").value,work=$("work").value,exp=$("exp").value;
@@ -16,7 +24,7 @@ function filter(){
  const queryCategory=q==="it"?"IT":(["non-it","non it","nonit"].includes(q)?"Non-IT":"");
  const terms=q.split(/\s+/).filter(Boolean);
  // Every search term may match a different field (e.g. "remote designer Canada").
- const matches=jobs.filter(j=>{const searchable=[j.title,j.company,j.location,j.country,j.category,j.workplace,j.experience].join(" ").toLowerCase();return (!q||(queryCategory?j.category===queryCategory:terms.every(term=>searchable.includes(term))))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id))});
+ const matches=jobs.filter(j=>{const searchable=[j.title,j.company,j.location,j.country,j.category,j.workplace,j.experience,j.department||"",j.employment_type||""].join(" ").toLowerCase();return (!q||(queryCategory?j.category===queryCategory:terms.every(term=>searchable.includes(term))))&&(!cat||j.category===cat)&&(!country||j.country===country)&&(!work||j.workplace===work)&&(!exp||j.experience===exp)&&(!savedOnly||saved.has(j.id))});
  const rank=j=>terms.reduce((score,word)=>score+
   (String(j.title||"").toLowerCase().includes(word)?8:0)+
   (String(j.company||"").toLowerCase().includes(word)?4:0)+
@@ -42,7 +50,16 @@ function draw(){
  });
  $("job-results").innerHTML=arr.length?arr.map(j=>{
   const checked=j.last_verified&&Number.isFinite(Date.parse(j.last_verified))?new Date(j.last_verified).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):"date not available";
-  return '<article class="card"><div><span class="company">'+escapeHTML(j.company)+'</span><h3>'+escapeHTML(j.title)+'</h3><span class="badge">'+escapeHTML(j.category||"Career")+'</span></div><div class="metadata">📍 '+escapeHTML(j.location)+' · '+escapeHTML(j.country)+'<br>💼 '+escapeHTML(j.workplace)+' · '+escapeHTML(j.experience)+'<br>Source: '+escapeHTML(j.source_name||"Employer board")+'<br>Employer feed checked: '+escapeHTML(checked)+'</div><div class="actions"><button type="button" class="save" aria-pressed="'+saved.has(j.id)+'" aria-label="'+(saved.has(j.id)?"Remove saved job: ":"Save job: ")+escapeHTML(j.title)+'" data-save="'+escapeHTML(j.id)+'">'+(saved.has(j.id)?"♥ Saved":"♡ Save")+'</button><a class="apply" target="_blank" rel="noopener noreferrer" aria-label="View '+escapeHTML(j.title)+' at the employer source" href="'+escapeHTML(safeApplyUrl(j.apply_url))+'">Apply at source ↗</a></div></article>';
+  const detailRows=[
+   ["Department",j.department||"Not listed"],
+   ["Employment type",j.employment_type||"See official listing"],
+   ["Experience level",j.experience==="Unspecified"?"See official listing":j.experience],
+   ["Closing date",j.deadline||"Not provided by employer"],
+   ["Salary / compensation",j.salary||"Not provided by employer"]
+  ].map(([key,value])=>'<div class="job-detail-row"><strong>'+escapeHTML(key)+'</strong><span>'+escapeHTML(value)+'</span></div>').join("");
+  const overview=j.overview?'<p class="job-summary">'+escapeHTML(j.overview)+'</p>':'<p class="job-summary">The public employer feed does not supply a role summary. Use the original job posting for required qualifications, selection stages and the complete job description.</p>';
+  const detailPanel='<details class="job-details"><summary>Job details, qualifications & dates</summary><div class="job-detail-grid">'+detailRows+'</div><strong>Employer description excerpt</strong>'+overview+'<p class="job-disclaimer">This is an employer-source summary, not an official vacancy notification. Verify exact eligibility, salary and closing date on the employer application page.</p></details>';
+  return '<article class="card"><div><span class="company">'+escapeHTML(j.company)+'</span><h3>'+escapeHTML(j.title)+'</h3><span class="badge">'+escapeHTML(j.category||"Career")+'</span></div><div class="metadata">📍 '+escapeHTML(j.location)+' · '+escapeHTML(j.country)+'<br>💼 '+escapeHTML(j.workplace)+' · '+escapeHTML(j.experience)+'<br>Source: '+escapeHTML(j.source_name||"Employer board")+'<br>Employer listing checked: '+escapeHTML(checked)+'</div>'+detailPanel+'<div class="actions"><button type="button" class="save" aria-pressed="'+saved.has(j.id)+'" aria-label="'+(saved.has(j.id)?"Remove saved job: ":"Save job: ")+escapeHTML(j.title)+'" data-save="'+escapeHTML(j.id)+'">'+(saved.has(j.id)?"♥ Saved":"♡ Save")+'</button><a class="apply" target="_blank" rel="noopener noreferrer" aria-label="View '+escapeHTML(j.title)+' at the employer source" href="'+escapeHTML(safeApplyUrl(j.apply_url))+'">Apply at source ↗</a></div></article>';
  }).join(""):'<div class="empty"><strong>No matching jobs right now</strong>Only successfully checked employer-source listings are displayed. Adjust or clear the filters, or revisit after the next daily update.</div>';
  const more=$("show-more-jobs"),count=$("result-count");
  const savedCount=$("saved-count");if(savedCount)savedCount.textContent=jobs.filter(j=>saved.has(j.id)).length+" saved";
@@ -103,9 +120,9 @@ $("share-search")?.addEventListener("click",async()=>{
  catch{if(status)status.textContent="Copy the link shown";window.prompt("Copy this job search link",url.toString());}
 });
 document.querySelectorAll(".category").forEach(el=>el.addEventListener("click",()=>{if(el.dataset.cat)$("cat").value=el.dataset.cat;if(el.dataset.work)$("work").value=el.dataset.work;if(el.dataset.exp)$("exp").value=el.dataset.exp;visibleCount=PAGE_SIZE;draw()}));
-fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{jobs=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});applySharedSearch();const lastSync=d.last_updated?Date.parse(d.last_updated):NaN;
+fetch("/data/jobs.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json()}).then(d=>{const all=Array.isArray(d.jobs)?d.jobs.filter(j=>j&&safeApplyUrl(j.apply_url)):[];jobs=all.filter(activeListing);const hiddenCount=all.length-jobs.length;const countryPicker=$("country");[...new Set(jobs.map(j=>j.country).filter(Boolean))].sort().forEach(country=>{const opt=document.createElement("option");opt.value=country;opt.textContent=country;countryPicker.appendChild(opt)});applySharedSearch();const lastSync=d.last_updated?Date.parse(d.last_updated):NaN;
  const syncLabel=Number.isFinite(lastSync)?new Date(lastSync).toLocaleDateString():"not yet recorded";
  const stale=Number.isFinite(lastSync)&&(Date.now()-lastSync)>72*60*60*1000;
- $("last-update").textContent=jobs.length+" employer-source jobs · last source sync "+syncLabel+(stale?" · Caution: source feed has not refreshed in over 72 hours":"");
+ $("last-update").textContent=jobs.length+" recently checked employer-source jobs · source sync "+syncLabel+(hiddenCount?" · "+hiddenCount+" stale / closed listings hidden":"")+(stale?" · Source refresh overdue":"");
  draw()}).catch(()=>{$("last-update").textContent="Job feed is temporarily unavailable";draw()});
 })();
