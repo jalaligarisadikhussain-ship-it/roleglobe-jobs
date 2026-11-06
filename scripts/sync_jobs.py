@@ -6,7 +6,7 @@ CONFIG = ROOT / "sources.json"
 DATA = ROOT / "site/data/jobs.json"
 UTC = dt.timezone.utc
 PROVIDERS = {"greenhouse":"boards-api.greenhouse.io", "lever":"api.lever.co", "ashby":"api.ashbyhq.com"}
-CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|data platform|data analyst|network engineer|site reliability|frontend|backend|full.?stack|security engineer|security scientist|ai engineer|applied scientist|ai research|it support|qa engineer|systems engineer|infrastructure|analytics engineer|integration engineer|platform engineer|forward deployed engineer|product engineer|engineering manager|ux engineer|business engineer|solutions engineer|technical support|technical quality|data architect|database|embedded engineer|ml engineer",re.I)
+CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|data platform|data analyst|network engineer|site reliability|frontend|backend|full.?stack|security engineer|security scientist|ai engineer|applied scientist|ai research|it support|qa engineer|systems engineer|infrastructure|analytics engineer|integration engineer|platform engineer|forward deployed engineer|product engineer|engineering manager|ux engineer|business engineer|solutions engineer|technical support|technical quality|data architect|database|embedded engineer|ml engineer|mobile engineer|\bios engineer\b|\bandroid engineer\b|\bfield engineer\b|\bdesign engineer\b|research engineer|business systems|\bcompliance engineer\b",re.I)
 COUNTRIES = {
     "India":r"india|bengaluru|bangalore|hyderabad|mumbai|delhi|chennai|pune|noida",
     "United States":r"united states|usa|u\.?s\.?a\.?|u\.?s\.?|san francisco|los angeles|new york|california|seattle|boston|texas|chicago|washington|austin",
@@ -42,27 +42,87 @@ def fetch(url):
         body=res.read(8_000_001)
         if len(body)>8_000_000: raise ValueError("Oversized feed")
         return json.loads(body)
+def deadline_date(value):
+    """Only explicit employer closing dates are deadlines; never infer from feed timestamps."""
+    if not isinstance(value, str):
+        return ""
+    match=re.match(r"^(\d{4}-\d{2}-\d{2})(?:[T\s].*)?$",value.strip())
+    if not match:
+        return ""
+    try:
+        return dt.date.fromisoformat(match.group(1)).isoformat()
+    except ValueError:
+        return ""
+
+def normalized_details(raw, provider):
+    """Minimal, attributed employer-board excerpt; complete terms remain on the official link."""
+    if provider=="greenhouse":
+        desc=raw.get("content") or ""
+        departments=raw.get("departments") or []
+        team=", ".join(text(x.get("name"),70) for x in departments if isinstance(x,dict)) if isinstance(departments,list) else ""
+        kind=raw.get("employment_type") or ""
+        compensation=""
+    elif provider=="lever":
+        desc=raw.get("descriptionPlain") or raw.get("description") or ""
+        cats=raw.get("categories") or {}
+        team=cats.get("team") or "" if isinstance(cats,dict) else ""
+        kind=cats.get("commitment") or "" if isinstance(cats,dict) else ""
+        compensation=""
+    else:
+        desc=raw.get("descriptionPlain") or raw.get("descriptionHtml") or ""
+        team=raw.get("department") or ""
+        kind=raw.get("employmentType") or ""
+        compensation=raw.get("compensationTierSummary") or ""
+    result={}
+    for key,value,length in [("overview",desc,1400),("department",team,120),
+                             ("employment_type",kind,90),("salary",compensation,140)]:
+        if isinstance(value,str) and value.strip():
+            result[key]=text(value,length)
+    closing=deadline_date(raw.get("closingDate") or raw.get("closing_date") or raw.get("validThrough") or raw.get("valid_through"))
+    if closing:
+        result["deadline"]=closing
+    return result
+
 def normalize(source, data):
     p=source["provider"]; company=source["company"]; board=source["board"]
     if p=="greenhouse":
         if not isinstance(data,dict) or not isinstance(data.get("jobs"),list): raise ValueError("Invalid greenhouse feed")
-        rows=[(r.get("id"),r.get("title"),(r.get("location") or {}).get("name"),r.get("absolute_url"),None) for r in data["jobs"] if isinstance(r,dict)]
+        raw_rows=[r for r in data["jobs"] if isinstance(r,dict)]
     elif p=="lever":
         if not isinstance(data,list): raise ValueError("Invalid lever feed")
-        rows=[(r.get("id"),r.get("text"),(r.get("categories") or {}).get("location"),r.get("hostedUrl"),r.get("workplaceType")) for r in data if isinstance(r,dict)]
+        raw_rows=[r for r in data if isinstance(r,dict)]
     else:
         if not isinstance(data,dict) or not isinstance(data.get("jobs"),list): raise ValueError("Invalid ashby feed")
-        rows=[(r.get("id"),r.get("title"),r.get("location"),r.get("jobUrl"),"Remote" if r.get("isRemote") else "") for r in data["jobs"] if isinstance(r,dict)]
+        raw_rows=[r for r in data["jobs"] if isinstance(r,dict) and r.get("isListed") is not False]
     allowed={"greenhouse":["greenhouse.io"],"lever":["lever.co"],"ashby":["ashbyhq.com"]}[p]
     results=[]
-    for id_, title, location, link, remote in rows:
+    for raw in raw_rows:
+        if p=="greenhouse":
+            id_,title=raw.get("id"),raw.get("title")
+            location=(raw.get("location") or {}).get("name") if isinstance(raw.get("location"),dict) else raw.get("location")
+            link,remote=raw.get("absolute_url"),None
+        elif p=="lever":
+            id_,title=raw.get("id"),raw.get("text")
+            categories=raw.get("categories") or {}
+            location=categories.get("location") if isinstance(categories,dict) else None
+            link,remote=raw.get("hostedUrl"),raw.get("workplaceType")
+        else:
+            id_,title=raw.get("id"),raw.get("title")
+            location,link=raw.get("location"),raw.get("jobUrl")
+            remote="Remote" if raw.get("isRemote") else ""
         if not id_ or not title or not domain_ok(link,allowed): continue
         title=text(title,180);location=text(location or "Location not specified",160)
         country=next((k for k,pattern in COUNTRIES.items() if re.search(r"\b(?:"+pattern+r")\b",location,re.I)),"Other")
         work="Remote" if "remote" in (str(remote)+" "+location).lower() else ("Hybrid" if "hybrid" in location.lower() else "On-site")
         exp="Entry-level" if re.search(r"\b(intern|internship|junior|graduate|entry|new grad)\b",title,re.I) else ("Senior" if re.search(r"\b(senior|principal|staff|director|lead)\b",title,re.I) else "Unspecified")
+        details=normalized_details(raw,p)
+        if details.get("deadline") and details["deadline"]<dt.datetime.now(UTC).date().isoformat():
+            continue  # An explicit closing date has passed.
         idstr=p+":"+board+":"+str(id_);slug=hashlib.sha256(idstr.encode()).hexdigest()[:12]
-        results.append({"id":idstr,"slug":slug,"title":title,"company":company,"country":country,"location":location,"category":"IT" if CATEGORIES.search(title) else "Non-IT","workplace":work,"experience":exp,"apply_url":str(link),"source_name":p.title()+" / "+company,"source_key":p+":"+board})
+        results.append({"id":idstr,"slug":slug,"title":title,"company":company,
+            "country":country,"location":location,"category":"IT" if CATEGORIES.search(title) else "Non-IT",
+            "workplace":work,"experience":exp,"apply_url":str(link),
+            "source_name":p.title()+" / "+company,"source_key":p+":"+board,**details})
     return results
 def publication_safe(previous_count, new_count):
     """Reject sudden near-total feed loss; preserve last good file for human review."""
@@ -79,7 +139,9 @@ def main():
             fetched=normalize(src,fetch(endpoint(src["provider"],src["board"])))
             success.add(name)
             for job in fetched:
-                job["last_verified"]=now.isoformat();loaded[job["id"]]=job
+                job["last_verified"]=now.isoformat()
+                job["first_seen"]=previous.get(job["id"],{}).get("first_seen") or now.isoformat()
+                loaded[job["id"]]=job
             statuses.append({"source":name,"status":"ok","jobs":len(fetched)})
             print(name,len(fetched))
         except Exception as e:
@@ -92,7 +154,7 @@ def main():
         if job.get("source_key") not in failed or job["id"] in loaded: continue
         try:
             last=dt.datetime.fromisoformat(job.get("last_verified",""))
-            if now-last <= dt.timedelta(hours=48):loaded[job["id"]]=job
+            if now-last <= dt.timedelta(hours=24):loaded[job["id"]]=job
         except ValueError: pass
     if not publication_safe(len(previous), len(loaded)):
         print(f"Safety stop: employer feed collapsed from {len(previous)} to {len(loaded)} listings. Retaining last good publication until investigated.",file=sys.stderr)
