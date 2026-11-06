@@ -1,7 +1,13 @@
 name: Refresh public employer jobs
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync_jobs.py'
+      - 'sources.json'
+      - '.github/workflows/daily-jobs.yml'
   schedule:
-    - cron: '17 2 * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
 permissions:
   contents: write
