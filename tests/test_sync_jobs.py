@@ -25,6 +25,38 @@ class SyncQualityTests(unittest.TestCase):
         self.assertEqual(self.item("Hyderabad, India")[0]["country"], "India")
         self.assertEqual(self.item("Toronto, Canada")[0]["country"], "Canada")
 
+    def test_ios_android_and_business_systems_are_it(self):
+        for title in ("Staff iOS Engineer, Media", "Mobile Engineer, Android",
+                      "Business Systems Analyst", "Research Engineer, AI"):
+            with self.subTest(title=title):
+                result=normalize(self.source,{"jobs":[{"id":"123","title":title,
+                    "location":{"name":"Remote - US"},
+                    "absolute_url":"https://job-boards.greenhouse.io/example/jobs/123"}]})
+                self.assertEqual(result[0]["category"],"IT")
+
+    def test_metadata_excerpt_and_confirmed_closing_date(self):
+        future={"jobs":[{"id":"123","title":"Software Engineer",
+            "location":{"name":"Bengaluru, India"},
+            "absolute_url":"https://job-boards.greenhouse.io/example/jobs/123",
+            "content":"<p>Build reliable software and test APIs.</p>",
+            "departments":[{"name":"Infrastructure Engineering"}],
+            "valid_through":"2099-12-31"}]}
+        job=normalize(self.source,future)[0]
+        self.assertEqual(job["department"],"Infrastructure Engineering")
+        self.assertIn("reliable software",job["overview"])
+        self.assertEqual(job["deadline"],"2099-12-31")
+
+    def test_expired_job_and_unlisted_ashby_removed(self):
+        closed={"jobs":[{"id":"123","title":"Software Engineer",
+            "location":{"name":"Remote - US"},
+            "absolute_url":"https://job-boards.greenhouse.io/example/jobs/123",
+            "valid_through":"2020-01-01"}]}
+        self.assertEqual(normalize(self.source,closed),[])
+        ashby={"provider":"ashby","board":"example","company":"Example"}
+        unlisted={"jobs":[{"id":"1","title":"Android Engineer","location":"Remote",
+            "jobUrl":"https://jobs.ashbyhq.com/example/1","isListed":False}]}
+        self.assertEqual(normalize(ashby,unlisted),[])
+
     def test_collapse_protection_keeps_last_good_feed(self):
         self.assertFalse(publication_safe(511, 0))
         self.assertFalse(publication_safe(511, 50))
