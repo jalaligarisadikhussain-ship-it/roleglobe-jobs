@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sat, 07 Nov 2026 05:58:53 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 07 Nov 2026 13:02:12 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/8403107002</link>
@@ -464,6 +464,12 @@
       <description>Employer-board listing: Figma | Location: San Francisco, CA • New York, NY • United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>Manager, Sales - Figma Weave (London, United Kingdom) — Figma</title>
+      <link>https://boards.greenhouse.io/figma/jobs/6245293004?gh_jid=6245293004</link>
+      <guid isPermaLink="false">greenhouse:figma:6245293004</guid>
+      <description>Employer-board listing: Figma | Location: London, England | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Manager, SMB Sales — Figma</title>
       <link>https://boards.greenhouse.io/figma/jobs/6166608004?gh_jid=6166608004</link>
       <guid isPermaLink="false">greenhouse:figma:6166608004</guid>
@@ -900,12 +906,6 @@
       <link>https://boards.greenhouse.io/figma/jobs/6008343004?gh_jid=6008343004</link>
       <guid isPermaLink="false">greenhouse:figma:6008343004</guid>
       <description>Employer-board listing: Figma | Location: San Francisco, CA • New York, NY • United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Account Executive, Enterprise — Linear</title>
-      <link>https://jobs.ashbyhq.com/linear/6dd5500a-4bd4-4f57-ba09-7b07acefecf4</link>
-      <guid isPermaLink="false">ashby:linear:6dd5500a-4bd4-4f57-ba09-7b07acefecf4</guid>
-      <description>Employer-board listing: Linear | Location: Singapore | Country: Singapore | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
   </channel>
 </rss>
