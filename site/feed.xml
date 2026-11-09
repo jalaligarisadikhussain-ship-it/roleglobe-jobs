@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 09 Nov 2026 13:49:12 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 22:23:00 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/8403107002</link>
@@ -36,6 +36,12 @@
       <link>https://job-boards.greenhouse.io/airtable/jobs/8368711002</link>
       <guid isPermaLink="false">greenhouse:airtable:8368711002</guid>
       <description>Employer-board listing: Airtable | Location: Remote - US | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Senior Solutions Architect — Airtable</title>
+      <link>https://job-boards.greenhouse.io/airtable/jobs/8498915002</link>
+      <guid isPermaLink="false">greenhouse:airtable:8498915002</guid>
+      <description>Employer-board listing: Airtable | Location: Remote - US | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>3P Revenue Accounting &amp; Reporting — Anthropic</title>
@@ -84,6 +90,12 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5382750008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5382750008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>AI Outcomes Manager, Enterprise Tech — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5454800008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5454800008</guid>
+      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>AI Outcomes Manager, Financial Services — Anthropic</title>
@@ -786,18 +798,6 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5462040008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5462040008</guid>
       <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Customer Success Manager, Commercial — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5421558008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5421558008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Customer Success Manager, Enterprise Tech — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5454800008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5454800008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Customer Success Manager, Industries — Anthropic</title>
