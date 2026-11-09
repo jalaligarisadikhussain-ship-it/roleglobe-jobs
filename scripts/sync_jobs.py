@@ -126,6 +126,30 @@ def normalize(source, data):
             "workplace":work,"experience":exp,"apply_url":str(link),
             "source_name":p.title()+" / "+company,"source_key":p+":"+board,**details})
     return results
+def balanced_listings(rows, limit=1200):
+    """Cap published jobs without one large employer board hiding other companies."""
+    buckets={}
+    for job in rows:
+        buckets.setdefault(job["company"], []).append(job)
+    for items in buckets.values():
+        items.sort(key=lambda j: (j["title"], j["id"]))
+    keys=sorted(buckets)
+    offsets={name:0 for name in keys}
+    selected=[]
+    while len(selected)<limit:
+        added=False
+        for name in keys:
+            i=offsets[name]
+            if i<len(buckets[name]):
+                selected.append(buckets[name][i])
+                offsets[name]+=1
+                added=True
+                if len(selected)==limit:
+                    break
+        if not added:
+            break
+    return sorted(selected, key=lambda j: (j["company"], j["title"]))
+
 def publication_safe(previous_count, new_count):
     """Reject sudden near-total feed loss; preserve last good file for human review."""
     return previous_count < 50 or new_count >= max(10, previous_count // 5)
@@ -166,7 +190,7 @@ def main():
     if not publication_safe(len(previous), len(loaded)):
         print(f"Safety stop: employer feed collapsed from {len(previous)} to {len(loaded)} listings. Retaining last good publication until investigated.",file=sys.stderr)
         return 1
-    out={"last_updated":now.isoformat(),"source_results":statuses,"jobs":sorted(loaded.values(),key=lambda j:(j["company"],j["title"]))[:1200]}
+    out={"last_updated":now.isoformat(),"source_results":statuses,"jobs":balanced_listings(loaded.values())}
     DATA.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("Published",len(out["jobs"]),"jobs")
     return 0
