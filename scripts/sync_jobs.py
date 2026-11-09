@@ -115,7 +115,9 @@ def normalize(source, data):
         country=next((k for k,pattern in COUNTRIES.items() if re.search(r"\b(?:"+pattern+r")\b",location,re.I)),"Other")
         work="Remote" if "remote" in (str(remote)+" "+location).lower() else ("Hybrid" if "hybrid" in location.lower() else "On-site")
         exp="Entry-level" if re.search(r"\b(intern|internship|junior|graduate|entry|new grad)\b",title,re.I) else ("Senior" if re.search(r"\b(senior|principal|staff|director|lead)\b",title,re.I) else "Unspecified")
-        details=normalized_details(raw,p)
+        # Newly onboarded employer boards are discoverable by factual metadata only,
+        # pending independent review of content reuse and commercial syndication rights.
+        details={} if source.get("metadata_only") else normalized_details(raw,p)
         if details.get("deadline") and details["deadline"]<dt.datetime.now(UTC).date().isoformat():
             continue  # An explicit closing date has passed.
         idstr=p+":"+board+":"+str(id_);slug=hashlib.sha256(idstr.encode()).hexdigest()[:12]
