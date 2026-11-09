@@ -4,6 +4,7 @@ import datetime as dt, hashlib, html, json, pathlib, re, sys, urllib.parse, urll
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "sources.json"
 DATA = ROOT / "site/data/jobs.json"
+HISTORY = ROOT / "site/data/first_seen_history.json"
 UTC = dt.timezone.utc
 PROVIDERS = {"greenhouse":"boards-api.greenhouse.io", "lever":"api.lever.co", "ashby":"api.ashbyhq.com"}
 CATEGORIES = re.compile(r"software|developer|devops|cyber|cloud|machine learning|data engineer|data scientist|data platform|data analyst|network engineer|site reliability|frontend|backend|full.?stack|security engineer|security scientist|ai engineer|applied scientist|ai research|it support|qa engineer|systems engineer|infrastructure|analytics engineer|integration engineer|platform engineer|forward deployed engineer|product engineer|engineering manager|ux engineer|business engineer|solutions engineer|technical support|technical quality|data architect|database|embedded engineer|ml engineer|mobile engineer|\bios engineer\b|\bandroid engineer\b|\bfield engineer\b|\bdesign engineer\b|research engineer|business systems|\bcompliance engineer\b",re.I)
@@ -157,6 +158,13 @@ def publication_safe(previous_count, new_count):
 def main():
     now=dt.datetime.now(UTC);cfg=json.loads(CONFIG.read_text(encoding="utf-8"))["sources"];current=json.loads(DATA.read_text(encoding="utf-8"))
     previous={j["id"]:j for j in current.get("jobs",[]) if isinstance(j,dict) and j.get("id")}
+    history_doc=json.loads(HISTORY.read_text(encoding="utf-8")) if HISTORY.exists() else {"version":1,"first_seen":{}}
+    first_seen=history_doc.get("first_seen",{})
+    if not isinstance(first_seen,dict):
+        raise ValueError("Malformed first-seen history")
+    for past in previous.values():
+        if past.get("first_seen"):
+            first_seen.setdefault(past["id"],past["first_seen"])
     loaded={};statuses=[];failed=set();success=set()
     for src in cfg:
         if not src.get("enabled"): continue
@@ -171,7 +179,8 @@ def main():
             success.add(name)
             for job in fetched:
                 job["last_verified"]=now.isoformat()
-                job["first_seen"]=previous.get(job["id"],{}).get("first_seen") or now.isoformat()
+                job["first_seen"]=first_seen.get(job["id"]) or previous.get(job["id"],{}).get("first_seen") or now.isoformat()
+                first_seen.setdefault(job["id"],job["first_seen"])
                 loaded[job["id"]]=job
             statuses.append({"source":name,"status":"ok","jobs":len(fetched)})
             print(name,len(fetched))
@@ -192,6 +201,7 @@ def main():
         return 1
     out={"last_updated":now.isoformat(),"source_results":statuses,"jobs":balanced_listings(loaded.values())}
     DATA.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+    HISTORY.write_text(json.dumps({"version":1,"first_seen":first_seen},indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print("Published",len(out["jobs"]),"jobs")
     return 0
 if __name__=="__main__":sys.exit(main())
