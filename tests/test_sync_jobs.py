@@ -1,6 +1,6 @@
 """Offline regression tests for RoleGlobe source location classification and link safety."""
 import unittest
-from scripts.sync_jobs import normalize, domain_ok, publication_safe
+from scripts.sync_jobs import normalize, domain_ok, publication_safe, balanced_listings
 
 
 class SyncQualityTests(unittest.TestCase):
@@ -56,6 +56,23 @@ class SyncQualityTests(unittest.TestCase):
         unlisted={"jobs":[{"id":"1","title":"Android Engineer","location":"Remote",
             "jobUrl":"https://jobs.ashbyhq.com/example/1","isListed":False}]}
         self.assertEqual(normalize(ashby,unlisted),[])
+
+    def test_balanced_cap_keeps_every_source_visible(self):
+        records=[{"company":company,"title":f"Role {i}","id":f"{company}-{i}"}
+                 for company in ("Anthropic","OpenAI","Reddit") for i in range(8)]
+        selected=balanced_listings(records, limit=9)
+        self.assertEqual(len(selected),9)
+        self.assertEqual({x["company"] for x in selected},{"Anthropic","OpenAI","Reddit"})
+        self.assertTrue(all(sum(x["company"]==company for x in selected)==3
+                            for company in ("Anthropic","OpenAI","Reddit")))
+
+    def test_metadata_only_source_does_not_republish_employer_prose(self):
+        source={**self.source,"metadata_only":True}
+        rows={"jobs":[{"id":"123","title":"AI Engineer","location":{"name":"Remote - US"},
+                         "absolute_url":"https://job-boards.greenhouse.io/example/jobs/123",
+                         "content":"<p>Employer copyrighted job description</p>"}]}
+        job=normalize(source,rows)[0]
+        self.assertNotIn("overview",job)
 
     def test_collapse_protection_keeps_last_good_feed(self):
         self.assertFalse(publication_safe(511, 0))
