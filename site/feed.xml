@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 09 Nov 2026 13:36:34 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 13:38:00 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/8403107002</link>
@@ -42,18 +42,6 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5456619008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5456619008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | Seattle, WA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>[Expression of Interest] Research Engineer / Scientist, Alignment - London — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/4610158008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:4610158008</guid>
-      <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>[Expression of Interest] Research Manager, Interpretability — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/4980436008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:4980436008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Account Executive - Public Sector (ASEAN) — Anthropic</title>
@@ -171,15 +159,9 @@
     </item>
     <item>
       <title>Applied AI Architect — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5450798008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5450798008</guid>
-      <description>Employer-board listing: Anthropic | Location: Sydney, Australia | Country: Australia | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5476577008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5476577008</guid>
-      <description>Employer-board listing: Anthropic | Location: Seoul, South Korea | Country: South Korea | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5076109008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5076109008</guid>
+      <description>Employer-board listing: Anthropic | Location: Tokyo, Japan | Country: Japan | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect — Anthropic</title>
@@ -189,15 +171,21 @@
     </item>
     <item>
       <title>Applied AI Architect — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5076109008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5076109008</guid>
-      <description>Employer-board listing: Anthropic | Location: Tokyo, Japan | Country: Japan | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5443882008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5443882008</guid>
       <description>Employer-board listing: Anthropic | Location: Bangalore, India | Country: India | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5450798008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5450798008</guid>
+      <description>Employer-board listing: Anthropic | Location: Sydney, Australia | Country: Australia | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5476577008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5476577008</guid>
+      <description>Employer-board listing: Anthropic | Location: Seoul, South Korea | Country: South Korea | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect ( Global Customers) — Anthropic</title>
@@ -261,21 +249,39 @@
     </item>
     <item>
       <title>Applied AI Architect, Industries — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390778008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5390778008</guid>
-      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect, Industries — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5390770008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5390770008</guid>
       <description>Employer-board listing: Anthropic | Location: Milan, Italy | Country: Other | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect, Industries — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390778008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5390778008</guid>
+      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect, International Policy — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5473195008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5473195008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect, Partnerships — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5300430008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5300430008</guid>
+      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Seattle, WA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect, Partnerships — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390787008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5390787008</guid>
+      <description>Employer-board listing: Anthropic | Location: Paris, France | Country: France | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Applied AI Architect, Partnerships — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5426933008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5426933008</guid>
+      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect, Partnerships — Anthropic</title>
@@ -294,24 +300,6 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5472677008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5472677008</guid>
       <description>Employer-board listing: Anthropic | Location: Sydney, Australia | Country: Australia | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect, Partnerships — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5426933008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5426933008</guid>
-      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect, Partnerships — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390787008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5390787008</guid>
-      <description>Employer-board listing: Anthropic | Location: Paris, France | Country: France | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect, Partnerships — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5300430008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5300430008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Seattle, WA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect, Public Sector — Anthropic</title>
@@ -393,9 +381,9 @@
     </item>
     <item>
       <title>Applied AI Engineer, Enterprise — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390795008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5390795008</guid>
-      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5057647008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5057647008</guid>
+      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Engineer, Enterprise — Anthropic</title>
@@ -405,9 +393,9 @@
     </item>
     <item>
       <title>Applied AI Engineer, Enterprise — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5057647008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5057647008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390795008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5390795008</guid>
+      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Engineer, Public Sector — Anthropic</title>
@@ -471,15 +459,15 @@
     </item>
     <item>
       <title>AV Engineer, Builds and Design — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5385590008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5385590008</guid>
-      <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>AV Engineer, Builds and Design — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5385588008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5385588008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>AV Engineer, Builds and Design — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5385590008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5385590008</guid>
+      <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>AV Engineer, Platform &amp; Automation — Anthropic</title>
@@ -765,18 +753,6 @@
     </item>
     <item>
       <title>Customer Success Manager — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5451376008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5451376008</guid>
-      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Customer Success Manager — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5456491008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5456491008</guid>
-      <description>Employer-board listing: Anthropic | Location: Tokyo, Japan | Country: Japan | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Customer Success Manager — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5391102008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5391102008</guid>
       <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
@@ -786,6 +762,18 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5391112008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5391112008</guid>
       <description>Employer-board listing: Anthropic | Location: Seoul, South Korea | Country: South Korea | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Customer Success Manager — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5451376008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5451376008</guid>
+      <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Customer Success Manager — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5456491008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5456491008</guid>
+      <description>Employer-board listing: Anthropic | Location: Tokyo, Japan | Country: Japan | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Customer Success Manager, Beneficial Deployments - Life Sciences — Anthropic</title>
@@ -906,6 +894,18 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5409569008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5409569008</guid>
       <description>Employer-board listing: Anthropic | Location: Remote-Friendly, United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Data Center Power Generation and Microgrids Engineer — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5468374008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5468374008</guid>
+      <description>Employer-board listing: Anthropic | Location: Remote-Friendly, United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Data Center Strategic Sourcing Lead - Construction — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5468875008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5468875008</guid>
+      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
   </channel>
 </rss>
