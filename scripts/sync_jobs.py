@@ -34,13 +34,13 @@ def endpoint(p, board):
     if p=="greenhouse": return "https://boards-api.greenhouse.io/v1/boards/"+b+"/jobs?content=true"
     if p=="lever": return "https://api.lever.co/v0/postings/"+b+"?mode=json"
     return "https://api.ashbyhq.com/posting-api/job-board/"+b
-def fetch(url):
+def fetch(url, max_bytes=8_000_000):
     if not domain_ok(url,PROVIDERS.values()): raise ValueError("Non-approved endpoint")
     req=urllib.request.Request(url,headers={"User-Agent":"RoleGlobeJobs/1.0 (public employer job discovery)","Accept":"application/json"})
     with urllib.request.urlopen(req,timeout=18) as res:
         if "json" not in res.headers.get("Content-Type","").lower(): raise ValueError("Non-JSON feed")
-        body=res.read(8_000_001)
-        if len(body)>8_000_000: raise ValueError("Oversized feed")
+        body=res.read(max_bytes+1)
+        if len(body)>max_bytes: raise ValueError("Oversized feed")
         return json.loads(body)
 def deadline_date(value):
     """Only explicit employer closing dates are deadlines; never infer from feed timestamps."""
@@ -138,7 +138,12 @@ def main():
         if not src.get("enabled"): continue
         name=src["provider"]+":"+src["board"]
         try:
-            fetched=normalize(src,fetch(endpoint(src["provider"],src["board"])))
+            uri=endpoint(src["provider"],src["board"])
+            # Greenhouse's metadata-only listing avoids retrieving full job prose.
+            if src.get("metadata_only") and src["provider"]=="greenhouse":
+                uri=uri.replace("?content=true","?content=false")
+            payload_limit=32_000_000 if src.get("metadata_only") else 8_000_000
+            fetched=normalize(src,fetch(uri,max_bytes=payload_limit))
             success.add(name)
             for job in fetched:
                 job["last_verified"]=now.isoformat()
