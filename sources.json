@@ -1,5 +1,5 @@
 {
-  "_note": "CANDIDATE job-board identifiers: live availability and commercial redistribution permissions must be independently confirmed. Do not monetize until source licensing has been checked.",
+  "_note": "Candidate employer-board IDs: ATS import validates provider responses and HTTPS employer-board links. New sources use factual metadata only pending content-use review. Individual employer availability, sponsorship and commercial syndication permissions remain unverified.",
   "sources": [
     {
       "provider": "greenhouse",
@@ -55,6 +55,20 @@
       "board": "airtable",
       "company": "Airtable",
       "enabled": true
+    },
+    {
+      "provider": "greenhouse",
+      "board": "anthropic",
+      "company": "Anthropic",
+      "enabled": true,
+      "metadata_only": true
+    },
+    {
+      "provider": "ashby",
+      "board": "openai",
+      "company": "OpenAI",
+      "enabled": true,
+      "metadata_only": true
     }
   ]
 }
