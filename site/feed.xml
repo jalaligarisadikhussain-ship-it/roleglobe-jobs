@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 13 Nov 2026 19:42:41 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2026 06:24:16 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/8403107002</link>
@@ -572,6 +572,12 @@
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Seattle, WA | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>CMC &amp; Manufacturing Lead, Life Sciences — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5481396008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5481396008</guid>
+      <description>Employer-board listing: Anthropic | Location: Remote-Friendly, United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Commercial Activation Lead — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5478939008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5478939008</guid>
@@ -704,6 +710,12 @@
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Seattle, WA | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>Corporate Counsel, Public Reporting — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5462511008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5462511008</guid>
+      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Corporate Development Lead, Life Sciences — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5358110008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5358110008</guid>
@@ -738,12 +750,6 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5463187008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5463187008</guid>
       <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Customer Programs Manager, Co-Marketing &amp; Measurement — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5388726008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5388726008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Customer Success Manager — Anthropic</title>
@@ -899,12 +905,6 @@
       <title>Data Engineer, Billing &amp; Payments — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5450099008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5450099008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Data Engineer, GTM — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5418610008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5418610008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
   </channel>
