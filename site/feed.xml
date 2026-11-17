@@ -6,7 +6,13 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 17 Nov 2026 07:55:36 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 20:56:05 GMT</lastBuildDate>
+    <item>
+      <title>Account Executive, Corporate — Airtable</title>
+      <link>https://job-boards.greenhouse.io/airtable/jobs/7909563002</link>
+      <guid isPermaLink="false">greenhouse:airtable:7909563002</guid>
+      <description>Employer-board listing: Airtable | Location: London, United Kingdom | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/8403107002</link>
@@ -48,6 +54,12 @@
       <link>https://job-boards.greenhouse.io/airtable/jobs/8368711002</link>
       <guid isPermaLink="false">greenhouse:airtable:8368711002</guid>
       <description>Employer-board listing: Airtable | Location: Remote - US | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>Senior Account Executive, Strategic Accounts UK&amp;I + Northern Europe — Airtable</title>
+      <link>https://job-boards.greenhouse.io/airtable/jobs/8579474002</link>
+      <guid isPermaLink="false">greenhouse:airtable:8579474002</guid>
+      <description>Employer-board listing: Airtable | Location: London, United Kingdom | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Senior Solutions Architect — Airtable</title>
@@ -303,12 +315,6 @@
     </item>
     <item>
       <title>Applied AI Architect, Partnerships — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5390787008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5390787008</guid>
-      <description>Employer-board listing: Anthropic | Location: Paris, France | Country: France | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Architect, Partnerships — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5426933008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5426933008</guid>
       <description>Employer-board listing: Anthropic | Location: Munich, Germany | Country: Germany | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
@@ -384,12 +390,6 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5439499008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5439499008</guid>
       <description>Employer-board listing: Anthropic | Location: Tokyo, Japan | Country: Japan | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Applied AI Demo Engineer — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5455961008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5455961008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Engineer, Beneficial Deployments (Clinical Development, Rare and Neglected Diseases) — Anthropic</title>
