@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Thu, 19 Nov 2026 07:26:38 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 20:38:22 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/7909563002</link>
@@ -144,6 +144,12 @@
       <link>https://job-boards.greenhouse.io/anthropic/jobs/4986159008</link>
       <guid isPermaLink="false">greenhouse:anthropic:4986159008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
+      <title>AI Outcomes Manager, Industries — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5068570008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5068570008</guid>
+      <description>Employer-board listing: Anthropic | Location: New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>AI Outcomes Manager, Strategic Tech — Anthropic</title>
@@ -353,7 +359,7 @@
       <title>Applied AI Architect, Public Sector (Federal Civilan) — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5455627008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5455627008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+      <description>Employer-board listing: Anthropic | Location: Washington, DC | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
       <title>Applied AI Architect, Public Sector (GovTech) — Anthropic</title>
@@ -536,6 +542,12 @@
       <description>Employer-board listing: Anthropic | Location: Washington, DC | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>AWS Partnerships Lead — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5486656008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5486656008</guid>
+      <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Brand Strategy Lead, Brand Architecture &amp; Naming — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5475321008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5475321008</guid>
@@ -680,6 +692,12 @@
       <description>Employer-board listing: Anthropic | Location: Sydney, Australia | Remote-Friendly, Australia | Country: Australia | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>Community Engagement Manager, Data Centres (Canada) — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5486907008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5486907008</guid>
+      <description>Employer-board listing: Anthropic | Location: Alberta, CAN | Remote-Friendly, Canada | Country: Canada | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Compute Capacity Strategy &amp; Operations — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5485582008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5485582008</guid>
@@ -788,12 +806,6 @@
       <description>Employer-board listing: Anthropic | Location: London, UK | Country: United Kingdom | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
-      <title>Customer Success Manager, Industries — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5068570008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5068570008</guid>
-      <description>Employer-board listing: Anthropic | Location: New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
       <title>Customer Success Manager, Public Sector (National Security) — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5427479008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5427479008</guid>
@@ -890,21 +902,9 @@
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
-      <title>Data Center Substation, Protection &amp; Automation Engineer — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5468380008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5468380008</guid>
-      <description>Employer-board listing: Anthropic | Location: Remote-Friendly, United States | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
       <title>Data Engineer, Billing &amp; Payments — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5450099008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5450099008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Data Engineer, GTM — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5418610008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5418610008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
   </channel>
