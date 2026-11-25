@@ -6,7 +6,7 @@
     <description>International IT and non-IT career discovery sourced from employer job boards. Listings are not guaranteed open; verify location, requirements and eligibility on the employer's official source.</description>
     <language>en</language>
     <atom:link href="https://roleglobe-jobs.pages.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 25 Nov 2026 08:35:08 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 21:43:02 GMT</lastBuildDate>
     <item>
       <title>Account Executive, Corporate — Airtable</title>
       <link>https://job-boards.greenhouse.io/airtable/jobs/7909563002</link>
@@ -470,6 +470,12 @@
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
     <item>
+      <title>Area Lead, Data Center Security Operations (NORAM - North East) — Anthropic</title>
+      <link>https://job-boards.greenhouse.io/anthropic/jobs/5491501008</link>
+      <guid isPermaLink="false">greenhouse:anthropic:5491501008</guid>
+      <description>Employer-board listing: Anthropic | Location: New York City, NY | Country: United States | Career field: Non-IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
+    </item>
+    <item>
       <title>Audit Operations Lead — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5459290008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5459290008</guid>
@@ -899,12 +905,6 @@
       <title>Data Engineer, Billing &amp; Payments — Anthropic</title>
       <link>https://job-boards.greenhouse.io/anthropic/jobs/5450099008</link>
       <guid isPermaLink="false">greenhouse:anthropic:5450099008</guid>
-      <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
-    </item>
-    <item>
-      <title>Data Engineer, GTM — Anthropic</title>
-      <link>https://job-boards.greenhouse.io/anthropic/jobs/5418610008</link>
-      <guid isPermaLink="false">greenhouse:anthropic:5418610008</guid>
       <description>Employer-board listing: Anthropic | Location: San Francisco, CA | New York City, NY | Country: United States | Career field: IT. RoleGlobe has not independently confirmed current availability, work authorization or sponsorship. Check the employer source.</description>
     </item>
   </channel>
